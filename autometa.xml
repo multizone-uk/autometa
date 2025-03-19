@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+  <update>
+    <name>Content - Automatic Meta Description</name>
+    <element>autometa</element>
+    <type>plugin</type>
+    <folder>content</folder>
+    <version>1.1.28</version>
+    <description>Automatically generates a meta description from the article title and lead content if it does not exist, when you save.</description>
+    <client>site</client>
+    <sha256>5a02635174a347a7c77f3561f53d94d43bb90bc8084ba2ab294d58b094bc8c85</sha256>
+    <sha384>f918515aa1dfa56097da02608fbd34b36ffea38a1e6f7a727974ed0c765f8e0baf4248ae2cf80e83f4d03459d69ac50f</sha384>
+    <sha512>bf48645e1f5586d37c3e34c8eb0970fa003d79c226a0c267987707c1166476af78a2a185c3543201c3f1cfd5e20dac429bf147d36d1a7b803aad625d88603bc4</sha512>
+    <downloads>
+      <downloadurl type="full">https://www.multizone.co.uk/updates/autometa-1.1.28.zip</downloadurl>
+    </downloads>
+    <infourl>https://www.multizone.co.uk/updates/autometa-readme.html</infourl>
+    <targetplatform name="joomla" version="((4\.4)|(5\.(0|1|2|3|4|5|6|7|8|9)))"/>
+    <tags>
+      <tag>stable</tag>
+    </tags>
+  </update>
+</updates>

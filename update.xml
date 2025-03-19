@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+  <update>
+    <name>Auto Meta Description</name>
+    <element>plg-autometa</element>
+    <type>plugin</type>
+    <version>1.1.3</version>
+    <description>Automatically generates meta descriptions for Joomla articles.</description>
+    <client>site</client>
+    <sha256>f9b2517c2740ab7d97f9926e26c329b1941ee17d0b49b7aaaff0b0e74565e8e1</sha256>
+    <sha384>b2214a0ba76e2b7684564550d71a5d5484ff0086dcf25752034562ed19f10e2b1e197d342d0de18712546838a97b39e7</sha384>
+    <sha512>34a4d369229da78eb74ec319534c1dd4b4eca8aec61b425aa5d73c4aa03d14569317d5d9d4b4aff0f2c3bc480af846a3975cd35775bd3d614b65c8b6a06bf976</sha512>
+    <downloads>
+      <downloadurl type="full">https://www.multizone.co.uk/plg-autometa-1.1.3.zip</downloadurl>
+    </downloads>
+    <tags>
+      <tag>stable</tag>
+    </tags>
+  </update>
+</updates>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="5.0" method="upgrade">
+    <name>com_autometa</name>
+    <version>1.0.1</version>
+    <creationDate>2025-03-11</creationDate>
+    <author>Angus Fox</author>
+    <description>Automatically generates meta descriptions for Joomla articles.</description>
+    <administration>
+        <menu link="index.php?option=com_autometa">AutoMeta</menu>
+        <files folder="admin">
+            <filename>autometa.php</filename>
+            <filename>controller.php</filename>
+            <folder>models</folder>
+            <folder>views</folder>  <!-- Ensure views are included -->
+        </files>
+    </administration>
+</extension>

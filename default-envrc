@@ -1,0 +1,13 @@
+#
+# Use direnv to set required environment variables
+#
+export PLUGIN_NAME="My Awesome Plugin"
+export PLUGIN_ELEMENT="myplugin"
+export PLUGIN_VERSION="1.2.3"
+export PLUGIN_DESCRIPTION="This is an awesome Joomla plugin that does amazing things"
+export export PLUGIN_DIR="/path/to/plugin/files"
+export OUTPUT_DIR="/path/to/output"
+export UPDATE_SERVER="https://updates.example.com"
+export SSH_USER="youruser"
+export SSH_HOST="yourserver.com"
+export REMOTE_PATH="/var/www/html/updates"

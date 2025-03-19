@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="5.0" group="content" method="upgrade">
+    <name>Content - Automatic Meta Description</name>
+    <version>1.1.28</version>
+    <creationDate>14 March 2025</creationDate>
+	<author>Angus Fox</author>
+	<copyright>(C) 2025 Multizone Limited. All rights reserved.</copyright>
+	<authorEmail>admin@multizone.co.uk</authorEmail>
+	<authorUrl>https://www.multizone.co.uk</authorUrl>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>PLG_CONTENT_AUTOMETA_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="autometa">autometa.php</filename>
+        <folder>language</folder>
+    </files>
+    <updateservers>
+        <server type="extension" name="Automatic Meta Description - EZONE">https://www.multizone.co.uk/updates/autometa.xml</server>
+ </updateservers>
+</extension>
