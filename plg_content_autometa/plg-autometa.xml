@@ -13,6 +13,63 @@
         <filename plugin="autometa">autometa.php</filename>
         <folder>language</folder>
     </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="max_length"
+                    type="number"
+                    label="Maximum Length"
+                    description="Maximum length of the meta description (Google typically shows 150-160 characters)"
+                    default="160"
+                    min="50"
+                    max="320"
+                    step="10"
+                />
+                <field
+                    name="separator"
+                    type="text"
+                    label="Separator"
+                    description="Separator between title and content summary"
+                    default=" - "
+                    size="10"
+                />
+                <field
+                    name="overwrite_existing"
+                    type="radio"
+                    label="Overwrite Existing"
+                    description="Overwrite meta descriptions that already exist"
+                    default="0"
+                    class="btn-group"
+                >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field
+                    name="use_title"
+                    type="radio"
+                    label="Include Title"
+                    description="Include the article title in the meta description"
+                    default="1"
+                    class="btn-group"
+                >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field
+                    name="use_content"
+                    type="radio"
+                    label="Include Content"
+                    description="Include content from the article intro text"
+                    default="1"
+                    class="btn-group"
+                >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
     <updateservers>
         <server type="extension" name="Automatic Meta Description - EZONE">https://www.multizone.co.uk/updates/autometa.xml</server>
  </updateservers>

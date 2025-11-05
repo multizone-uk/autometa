@@ -8,8 +8,10 @@
 */
 defined('_JEXEC') or die;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_autometa&task=regenerateAll'); ?>" method="post">
     <button type="submit" class="btn btn-primary">Regenerate All Meta Descriptions</button>
+    <?php echo Session::getFormToken(); ?>
 </form>

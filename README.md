@@ -1,11 +1,23 @@
 
 # Automatic Meta Description
 
-This is a Joomla! plugin which automatically generates a meta description from the article title and and first 140 characters of content if it does not exist, when you save.
+This is a Joomla! plugin which automatically generates a meta description from the article title and content if it does not exist, when you save.
+
+**Features:**
+- Automatically generates meta descriptions on article save
+- Configurable character limit (default 160, optimal for SEO)
+- Smart truncation at word boundaries
+- Configurable separator between title and content
+- Option to include/exclude title or content
+- Option to overwrite existing descriptions
+- Component for bulk regeneration of all articles
+- Batch processing to handle large sites efficiently
+- CSRF protection and permission checks
+- Error handling and logging
 
 It includes a script to generate the plugin from the source and create the required XML and deploy the plugin to an update server.
 
-It contains a content plugin too but this is not publshed in the Joomla Extension Directory because it is quite invasive - regenerating the Meta Description for all articles.
+It contains a component too for bulk regeneration but this is not published in the Joomla Extension Directory.
 
 
 
@@ -56,9 +68,15 @@ Consider using direnv to set it for you via a .envrc file. There is an example i
 
 ## Roadmap
 
-- Improve the logic add an AI generator perhaps
-- Some of the XML is hard coded for it specifically that it is a site content plugin.
-- Some of the environment variables should probably be somewhere else to avoid duplication.
-- Version number, Date etc is in three or four places in the code which is tedious.
-- Provide a changelog
+- Implement namespaces (PSR-4) for Joomla 4/5 best practices
+- Modernize component to use current Joomla MVC patterns
+- Add service provider for dependency injection
+- Centralize version management
+- Add unit tests
+- Set up CI/CD pipeline
+- Create CHANGELOG.md
+
+## Development Notes
+
+Code improvements and refactoring assisted by Claude (Anthropic).
 
