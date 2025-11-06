@@ -25,6 +25,16 @@ $bootstrapMessage = '[' . date('Y-m-d H:i:s') . '] autometa.php file loaded by J
 
 return new class () implements ServiceProviderInterface {
     /**
+     * Constructor - logs when service provider is instantiated
+     */
+    public function __construct()
+    {
+        $logFile = JPATH_ADMINISTRATOR . '/logs/plg_autometa_bootstrap.log';
+        $message = '[' . date('Y-m-d H:i:s') . '] ServiceProvider constructor called' . PHP_EOL;
+        @file_put_contents($logFile, $message, FILE_APPEND);
+    }
+
+    /**
      * Registers the service provider with a DI container.
      *
      * @param   Container  $container  The DI container.
@@ -35,7 +45,12 @@ return new class () implements ServiceProviderInterface {
      */
     public function register(Container $container): void
     {
-        // Initialize logging first
+        // Log to bootstrap file since Log might not be initialized yet
+        $logFile = JPATH_ADMINISTRATOR . '/logs/plg_autometa_bootstrap.log';
+        $message = '[' . date('Y-m-d H:i:s') . '] ServiceProvider register() method called' . PHP_EOL;
+        @file_put_contents($logFile, $message, FILE_APPEND);
+
+        // Initialize logging
         Log::addLogger(
             [
                 'text_file' => 'plg_autometa.php',
