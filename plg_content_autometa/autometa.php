@@ -14,6 +14,9 @@ defined('_JEXEC') or die;
 $bootstrapLogFile = JPATH_ADMINISTRATOR . '/logs/plg_autometa_bootstrap.log';
 @file_put_contents($bootstrapLogFile, '[' . date('Y-m-d H:i:s') . '] autometa.php loaded' . PHP_EOL, FILE_APPEND);
 
+// Manually load the namespaced class before PSR-4 autoloader is ready
+require_once __DIR__ . '/src/Extension/AutoMeta.php';
+
 use Ezone\Plugin\Content\AutoMeta\Extension\AutoMeta;
 use Joomla\CMS\Plugin\CMSPlugin;
 
