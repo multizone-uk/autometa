@@ -18,8 +18,11 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 
-// Manually load the component class before autoloader is ready
+// Manually load classes before autoloader is ready
 require_once __DIR__ . '/../src/Extension/AutoMetaComponent.php';
+require_once __DIR__ . '/../src/Controller/DisplayController.php';
+require_once __DIR__ . '/../src/Model/AutometaModel.php';
+require_once __DIR__ . '/../src/View/Autometa/HtmlView.php';
 
 use Ezone\Component\AutoMeta\Extension\AutoMetaComponent;
 
