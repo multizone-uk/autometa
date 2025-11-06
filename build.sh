@@ -18,7 +18,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Extract version from plugin manifest
-PLUGIN_MANIFEST="${PLUGIN_DIR}/plg-autometa.xml"
+PLUGIN_MANIFEST="${PLUGIN_DIR}/autometa.xml"
 if [ ! -f "$PLUGIN_MANIFEST" ]; then
     echo -e "${RED}Error: Plugin manifest not found: $PLUGIN_MANIFEST${NC}"
     exit 1
