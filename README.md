@@ -48,22 +48,35 @@ It contains a component too for bulk regeneration but this is not published in t
 
 [Demo](https://www.multizone.co.uk/extensions/joomla-content-plugin-automatic-meta-description-ezone.html)
 
-## Environment Variables
+## Building
 
-To run this project, you will need to add the following environment variables to your file.
+Build the plugin locally:
 
- `PLUGIN_NAME` 
- `PLUGIN_ELEMENT`
- `PLUGIN_VERSION`
- `PLUGIN_DESCRIPTION`
-  `PLUGIN_DIR`
- `OUTPUT_DIR`
- `UPDATE_SERVER`
- `SSH_USER`
- `SSH_HOST`
- `REMOTE_PATH`
+```bash
+./build.sh
+```
 
-Consider using direnv to set it for you via a .envrc file. There is an example in the project.
+This creates distribution files in `dist/`:
+- `autometa-{version}.zip` - Versioned plugin package
+- `autometa-latest.zip` - Latest version copy
+- `autometa.xml` - Update server XML with hashes
+
+Version is automatically read from `plg_content_autometa/plg-autometa.xml`.
+
+### Optional: Upload to Update Server
+
+Set environment variables to enable automatic upload:
+
+```bash
+export UPDATE_SERVER="https://your-update-server.com/updates"
+export SSH_USER="youruser"
+export SSH_HOST="yourserver.com"
+export REMOTE_PATH="/var/www/html/updates"
+
+./build.sh
+```
+
+Or use in GitHub Actions with secrets - see `.github/workflows/build.yml.example`
 
 
 ## Roadmap
