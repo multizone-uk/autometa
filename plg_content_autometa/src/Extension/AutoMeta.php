@@ -21,7 +21,7 @@ use Joomla\CMS\Log\Log;
  *
  * @since  1.0.0
  */
-final class AutoMeta extends CMSPlugin
+class AutoMeta extends CMSPlugin
 {
     /**
      * Load plugin language files automatically
