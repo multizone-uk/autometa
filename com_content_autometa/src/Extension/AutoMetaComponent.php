@@ -2,7 +2,7 @@
 /**
  * @package     Regenerate Meta Descriptions
  * @subpackage  com_autometa
- * @version     1.1.28
+ * @version     1.2.1
  * @author      Angus Fox
  * @copyright   (C) 2025 - Multizone Limited
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,7 +19,7 @@ use Psr\Container\ContainerInterface;
 /**
  * Component class for com_autometa
  *
- * @since  1.2.0
+ * @since  1.2.1
  */
 class AutoMetaComponent extends MVCComponent implements BootableExtensionInterface
 {
