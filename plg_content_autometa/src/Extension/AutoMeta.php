@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Log\Log;
 
 /**
  * Automatic Meta Description Plugin
@@ -31,6 +32,38 @@ final class AutoMeta extends CMSPlugin
     protected $autoloadLanguage = true;
 
     /**
+     * Constructor
+     *
+     * @param   object  $subject  The object to observe
+     * @param   array   $config   An optional associative array of configuration settings
+     *
+     * @since   1.0.0
+     */
+    public function __construct(&$subject, $config = [])
+    {
+        parent::__construct($subject, $config);
+
+        // Initialize file logging
+        Log::addLogger(
+            [
+                'text_file' => 'plg_autometa.php',
+                'text_entry_format' => '{DATE} {TIME} {PRIORITY} {MESSAGE}'
+            ],
+            Log::ALL,
+            ['plg_autometa']
+        );
+
+        Log::add('AutoMeta plugin constructor called', Log::INFO, 'plg_autometa');
+
+        // Also add a message to the queue
+        try {
+            Factory::getApplication()->enqueueMessage('AutoMeta plugin constructor called', 'info');
+        } catch (\Exception $e) {
+            Log::add('Could not enqueue message: ' . $e->getMessage(), Log::WARNING, 'plg_autometa');
+        }
+    }
+
+    /**
      * Event triggered before saving content
      *
      * @param   string   $context  The context of the content being passed to the plugin
@@ -43,27 +76,40 @@ final class AutoMeta extends CMSPlugin
      */
     public function onContentBeforeSave($context, $article, $isNew)
     {
-        // Debug: Log that event was triggered
-        Factory::getApplication()->enqueueMessage('AutoMeta plugin triggered for context: ' . $context, 'info');
+        // Debug: Log that event was triggered (both to file and message queue)
+        $message = 'AutoMeta plugin triggered for context: ' . $context . ' | isNew: ' . ($isNew ? 'true' : 'false');
+        Log::add($message, Log::INFO, 'plg_autometa');
+        Factory::getApplication()->enqueueMessage($message, 'info');
+
+        // Log article details for debugging
+        Log::add('Article title: ' . ($article->title ?? 'N/A'), Log::INFO, 'plg_autometa');
+        Log::add('Current metadesc: ' . ($article->metadesc ?? 'empty'), Log::INFO, 'plg_autometa');
 
         // Ensure it's a Joomla article
         if ($context !== 'com_content.article') {
+            Log::add('Context mismatch - skipping. Expected: com_content.article, Got: ' . $context, Log::INFO, 'plg_autometa');
+            Factory::getApplication()->enqueueMessage('AutoMeta: Skipping (context: ' . $context . ')', 'warning');
             return true;
         }
 
         // Check if we should overwrite existing descriptions
         $overwriteExisting = (bool) $this->params->get('overwrite_existing', 0);
+        Log::add('Overwrite existing: ' . ($overwriteExisting ? 'yes' : 'no'), Log::INFO, 'plg_autometa');
 
         // Skip if a meta description already exists and we're not overwriting
         if (!empty($article->metadesc) && !$overwriteExisting) {
-            Factory::getApplication()->enqueueMessage('AutoMeta: Skipping - meta description already exists', 'info');
+            $skipMessage = 'AutoMeta: Skipping - meta description already exists';
+            Log::add($skipMessage, Log::INFO, 'plg_autometa');
+            Factory::getApplication()->enqueueMessage($skipMessage, 'info');
             return true;
         }
 
         // Generate a meta description using the title and introtext
         $article->metadesc = $this->generateMetaDescription($article->title, $article->introtext);
 
-        Factory::getApplication()->enqueueMessage('AutoMeta: Generated description: ' . substr($article->metadesc, 0, 50) . '...', 'success');
+        $successMessage = 'AutoMeta: Generated description: ' . substr($article->metadesc, 0, 50) . '...';
+        Log::add($successMessage, Log::INFO, 'plg_autometa');
+        Factory::getApplication()->enqueueMessage($successMessage, 'success');
 
         return true;
     }

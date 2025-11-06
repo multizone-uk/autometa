@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Extension\PluginInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Log\Log;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
@@ -29,18 +30,42 @@ return new class () implements ServiceProviderInterface {
      */
     public function register(Container $container): void
     {
+        // Initialize logging first
+        Log::addLogger(
+            [
+                'text_file' => 'plg_autometa.php',
+                'text_entry_format' => '{DATE} {TIME} {PRIORITY} {MESSAGE}'
+            ],
+            Log::ALL,
+            ['plg_autometa']
+        );
+
+        Log::add('AutoMeta service provider register() called', Log::INFO, 'plg_autometa');
+
         $container->set(
             PluginInterface::class,
             function (Container $container) {
+                Log::add('AutoMeta service provider factory function called', Log::INFO, 'plg_autometa');
+
                 $dispatcher = $container->get(DispatcherInterface::class);
+                Log::add('Dispatcher retrieved', Log::INFO, 'plg_autometa');
+
+                $pluginData = PluginHelper::getPlugin('content', 'autometa');
+                Log::add('Plugin data: ' . ($pluginData ? 'found' : 'NOT FOUND'), Log::INFO, 'plg_autometa');
+
                 $plugin = new \Ezone\Plugin\Content\AutoMeta\Extension\AutoMeta(
                     $dispatcher,
-                    (array) PluginHelper::getPlugin('content', 'autometa')
+                    (array) $pluginData
                 );
+                Log::add('Plugin instance created', Log::INFO, 'plg_autometa');
+
                 $plugin->setApplication(Factory::getApplication());
+                Log::add('Application set on plugin', Log::INFO, 'plg_autometa');
 
                 return $plugin;
             }
         );
+
+        Log::add('AutoMeta service provider registration complete', Log::INFO, 'plg_autometa');
     }
 };
