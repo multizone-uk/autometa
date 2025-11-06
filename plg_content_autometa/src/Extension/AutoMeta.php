@@ -14,28 +14,14 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Factory;
-use Joomla\Event\SubscriberInterface;
 
 /**
  * Automatic Meta Description Plugin
  *
  * @since  1.0.0
  */
-final class AutoMeta extends CMSPlugin implements SubscriberInterface
+final class AutoMeta extends CMSPlugin
 {
-    /**
-     * Returns an array of events this subscriber will listen to.
-     *
-     * @return  array
-     *
-     * @since   1.2.0
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            'onContentBeforeSave' => 'onContentBeforeSave',
-        ];
-    }
 
     /**
      * Event triggered before saving content
