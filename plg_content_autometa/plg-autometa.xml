@@ -12,7 +12,6 @@
     <namespace path="src">Ezone\Plugin\Content\AutoMeta</namespace>
     <files>
         <filename plugin="autometa">autometa.php</filename>
-        <folder>services</folder>
         <folder>src</folder>
         <folder>language</folder>
     </files>
