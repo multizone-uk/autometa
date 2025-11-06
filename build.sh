@@ -24,8 +24,8 @@ if [ ! -f "$PLUGIN_MANIFEST" ]; then
     exit 1
 fi
 
-VERSION=$(grep -oP '<version>\K[^<]+' "$PLUGIN_MANIFEST")
-PLUGIN_NAME=$(grep -oP '<name>\K[^<]+' "$PLUGIN_MANIFEST")
+VERSION=$(grep '<version>' "$PLUGIN_MANIFEST" | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | head -n1)
+PLUGIN_NAME=$(grep '<name>' "$PLUGIN_MANIFEST" | sed 's/.*<name>\(.*\)<\/name>.*/\1/' | head -n1)
 
 echo -e "${GREEN}Building ${PLUGIN_NAME} v${VERSION}${NC}"
 
@@ -47,10 +47,16 @@ cp "$PLUGIN_ZIP" "${OUTPUT_DIR}/autometa-latest.zip"
 
 echo -e "${GREEN}✓ Plugin built: ${PLUGIN_ZIP}${NC}"
 
-# Generate hashes
-SHA256=$(sha256sum "$PLUGIN_ZIP" | awk '{print $1}')
-SHA384=$(sha384sum "$PLUGIN_ZIP" | awk '{print $1}')
-SHA512=$(sha512sum "$PLUGIN_ZIP" | awk '{print $1}')
+# Generate hashes (macOS uses shasum, Linux uses sha256sum/sha384sum/sha512sum)
+if command -v shasum &> /dev/null; then
+    SHA256=$(shasum -a 256 "$PLUGIN_ZIP" | awk '{print $1}')
+    SHA384=$(shasum -a 384 "$PLUGIN_ZIP" | awk '{print $1}')
+    SHA512=$(shasum -a 512 "$PLUGIN_ZIP" | awk '{print $1}')
+else
+    SHA256=$(sha256sum "$PLUGIN_ZIP" | awk '{print $1}')
+    SHA384=$(sha384sum "$PLUGIN_ZIP" | awk '{print $1}')
+    SHA512=$(sha512sum "$PLUGIN_ZIP" | awk '{print $1}')
+fi
 
 # Generate update XML
 UPDATE_XML="${OUTPUT_DIR}/autometa.xml"
