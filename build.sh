@@ -47,6 +47,24 @@ cp "$PLUGIN_ZIP" "${OUTPUT_DIR}/autometa-latest.zip"
 
 echo -e "${GREEN}✓ Plugin built: ${PLUGIN_ZIP}${NC}"
 
+# Build component
+echo "Building component..."
+COMPONENT_MANIFEST="${COMPONENT_DIR}/manifest.xml"
+if [ -f "$COMPONENT_MANIFEST" ]; then
+    COMPONENT_VERSION=$(grep '<version>' "$COMPONENT_MANIFEST" | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | head -n1)
+    COMPONENT_ZIP="${OUTPUT_DIR}/com_autometa-${COMPONENT_VERSION}.zip"
+    cd "$COMPONENT_DIR"
+    zip -r "../${COMPONENT_ZIP}" * -x "*.DS_Store"
+    cd ..
+
+    # Create latest symlink/copy
+    cp "$COMPONENT_ZIP" "${OUTPUT_DIR}/com_autometa-latest.zip"
+
+    echo -e "${GREEN}✓ Component built: ${COMPONENT_ZIP}${NC}"
+else
+    echo -e "${YELLOW}⚠ Component manifest not found, skipping component build${NC}"
+fi
+
 # Generate hashes (macOS uses shasum, Linux uses sha256sum/sha384sum/sha512sum)
 if command -v shasum &> /dev/null; then
     SHA256=$(shasum -a 256 "$PLUGIN_ZIP" | awk '{print $1}')
