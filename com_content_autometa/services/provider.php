@@ -17,6 +17,10 @@ use Joomla\CMS\Extension\Service\Provider\MVCFactory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+
+// Manually load the component class before autoloader is ready
+require_once __DIR__ . '/../src/Extension/AutoMetaComponent.php';
+
 use Ezone\Component\AutoMeta\Extension\AutoMetaComponent;
 
 return new class () implements ServiceProviderInterface {
