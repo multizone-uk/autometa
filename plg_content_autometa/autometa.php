@@ -10,82 +10,24 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Extension\PluginInterface;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\CMS\Log\Log;
-use Joomla\DI\Container;
-use Joomla\DI\ServiceProviderInterface;
-use Joomla\Event\DispatcherInterface;
-
-// Bootstrap logging - verify this file is being loaded by Joomla
+// Bootstrap logging
 $bootstrapLogFile = JPATH_ADMINISTRATOR . '/logs/plg_autometa_bootstrap.log';
-$bootstrapMessage = '[' . date('Y-m-d H:i:s') . '] autometa.php file loaded by Joomla' . PHP_EOL;
-@file_put_contents($bootstrapLogFile, $bootstrapMessage, FILE_APPEND);
+@file_put_contents($bootstrapLogFile, '[' . date('Y-m-d H:i:s') . '] autometa.php loaded' . PHP_EOL, FILE_APPEND);
 
-return new class () implements ServiceProviderInterface {
-    /**
-     * Constructor - logs when service provider is instantiated
-     */
-    public function __construct()
+use Ezone\Plugin\Content\AutoMeta\Extension\AutoMeta;
+use Joomla\CMS\Plugin\CMSPlugin;
+
+// Create a simple class alias in the global namespace for Joomla to find
+// This bridges the gap between Joomla's expectation and our namespaced class
+class PlgContentAutometa extends AutoMeta
+{
+    // Inherit everything from the namespaced AutoMeta class
+    // Log when this class is instantiated
+    public function __construct(&$subject, $config = [])
     {
+        parent::__construct($subject, $config);
+
         $logFile = JPATH_ADMINISTRATOR . '/logs/plg_autometa_bootstrap.log';
-        $message = '[' . date('Y-m-d H:i:s') . '] ServiceProvider constructor called' . PHP_EOL;
-        @file_put_contents($logFile, $message, FILE_APPEND);
+        @file_put_contents($logFile, '[' . date('Y-m-d H:i:s') . '] PlgContentAutometa instantiated!' . PHP_EOL, FILE_APPEND);
     }
-
-    /**
-     * Registers the service provider with a DI container.
-     *
-     * @param   Container  $container  The DI container.
-     *
-     * @return  void
-     *
-     * @since   1.2.0
-     */
-    public function register(Container $container): void
-    {
-        // Log to bootstrap file since Log might not be initialized yet
-        $logFile = JPATH_ADMINISTRATOR . '/logs/plg_autometa_bootstrap.log';
-        $message = '[' . date('Y-m-d H:i:s') . '] ServiceProvider register() method called' . PHP_EOL;
-        @file_put_contents($logFile, $message, FILE_APPEND);
-
-        // Initialize logging
-        Log::addLogger(
-            [
-                'text_file' => 'plg_autometa.php',
-                'text_entry_format' => '{DATE} {TIME} {PRIORITY} {MESSAGE}'
-            ],
-            Log::ALL,
-            ['plg_autometa']
-        );
-
-        Log::add('AutoMeta service provider register() called', Log::INFO, 'plg_autometa');
-
-        $container->set(
-            PluginInterface::class,
-            function (Container $container) {
-                Log::add('AutoMeta service provider factory function called', Log::INFO, 'plg_autometa');
-
-                $dispatcher = $container->get(DispatcherInterface::class);
-                Log::add('Dispatcher retrieved', Log::INFO, 'plg_autometa');
-
-                $pluginData = PluginHelper::getPlugin('content', 'autometa');
-                Log::add('Plugin data: ' . ($pluginData ? 'found' : 'NOT FOUND'), Log::INFO, 'plg_autometa');
-
-                $plugin = new \Ezone\Plugin\Content\AutoMeta\Extension\AutoMeta(
-                    $dispatcher,
-                    (array) $pluginData
-                );
-                Log::add('Plugin instance created', Log::INFO, 'plg_autometa');
-
-                $plugin->setApplication(Factory::getApplication());
-                Log::add('Application set on plugin', Log::INFO, 'plg_autometa');
-
-                return $plugin;
-            }
-        );
-
-        Log::add('AutoMeta service provider registration complete', Log::INFO, 'plg_autometa');
-    }
-};
+}
