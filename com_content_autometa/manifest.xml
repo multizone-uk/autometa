@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="5.0" method="upgrade">
     <name>com_autometa</name>
-    <version>1.0.1</version>
-    <creationDate>2025-03-11</creationDate>
+    <version>1.2.0</version>
+    <creationDate>2025-11-06</creationDate>
     <author>Angus Fox</author>
+    <copyright>(C) 2025 Multizone Limited. All rights reserved.</copyright>
+    <authorEmail>admin@multizone.co.uk</authorEmail>
+    <authorUrl>https://www.multizone.co.uk</authorUrl>
+    <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
     <description>Automatically generates meta descriptions for Joomla articles.</description>
+    <namespace path="src">Ezone\Component\AutoMeta</namespace>
     <administration>
         <menu link="index.php?option=com_autometa">AutoMeta</menu>
-        <files folder="admin">
-            <filename>autometa.php</filename>
-            <filename>controller.php</filename>
-            <folder>models</folder>
-            <folder>views</folder>  <!-- Ensure views are included -->
+        <files folder=".">
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
         </files>
+        <languages folder="language">
+            <language tag="en-GB">en-GB/com_autometa.ini</language>
+            <language tag="en-GB">en-GB/com_autometa.sys.ini</language>
+        </languages>
     </administration>
 </extension>
