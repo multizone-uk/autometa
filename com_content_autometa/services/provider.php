@@ -30,7 +30,7 @@ require_once __DIR__ . '/../src/Controller/DisplayController.php';
 require_once __DIR__ . '/../src/Model/AutometaModel.php';
 require_once __DIR__ . '/../src/View/Autometa/HtmlView.php';
 
-use Ezone\Component\AutoMeta\Extension\AutoMetaComponent;
+use Ezone\Component\AutoMeta\Administrator\Extension\AutoMetaComponent;
 
 return new class () implements ServiceProviderInterface {
     /**
@@ -45,7 +45,7 @@ return new class () implements ServiceProviderInterface {
     public function register(Container $container): void
     {
         // Register namespace with Joomla's autoloader
-        \JLoader::registerNamespace('Ezone\\Component\\AutoMeta', JPATH_ADMINISTRATOR . '/components/com_autometa/src', false, false, 'psr4');
+        \JLoader::registerNamespace('Ezone\\Component\\AutoMeta\\Administrator', JPATH_ADMINISTRATOR . '/components/com_autometa/src', false, false, 'psr4');
 
         $container->registerServiceProvider(new MVCFactory('\\Ezone\\Component\\AutoMeta'));
         $container->registerServiceProvider(new ComponentDispatcherFactory('\\Ezone\\Component\\AutoMeta'));
