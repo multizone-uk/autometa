@@ -19,6 +19,12 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 
 // Manually load classes before autoloader is ready
+// Load plugin helper first (Model depends on it)
+$pluginHelperPath = JPATH_PLUGINS . '/content/autometa/src/Helper/MetaDescriptionHelper.php';
+if (file_exists($pluginHelperPath)) {
+    require_once $pluginHelperPath;
+}
+
 require_once __DIR__ . '/../src/Extension/AutoMetaComponent.php';
 require_once __DIR__ . '/../src/Controller/DisplayController.php';
 require_once __DIR__ . '/../src/Model/AutometaModel.php';
@@ -38,6 +44,9 @@ return new class () implements ServiceProviderInterface {
      */
     public function register(Container $container): void
     {
+        // Register namespace with Joomla's autoloader
+        \JLoader::registerNamespace('Ezone\\Component\\AutoMeta', JPATH_ADMINISTRATOR . '/components/com_autometa/src', false, false, 'psr4');
+
         $container->registerServiceProvider(new MVCFactory('\\Ezone\\Component\\AutoMeta'));
         $container->registerServiceProvider(new ComponentDispatcherFactory('\\Ezone\\Component\\AutoMeta'));
 
