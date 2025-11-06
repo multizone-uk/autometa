@@ -18,7 +18,7 @@ use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Ezone\Component\AutoMeta\Administrator\Extension\AutoMetaComponent;
+use Ezone\Component\AutoMeta\Extension\AutoMetaComponent;
 
 return new class () implements ServiceProviderInterface {
     /**
