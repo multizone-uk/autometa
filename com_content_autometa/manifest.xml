@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="5.0" method="upgrade">
     <name>com_autometa</name>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <creationDate>2025-11-06</creationDate>
     <author>Angus Fox</author>
     <copyright>(C) 2025 Multizone Limited. All rights reserved.</copyright>

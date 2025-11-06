@@ -2,7 +2,7 @@
 /**
  * @package     Regenerate Meta Descriptions
  * @subpackage  com_autometa
- * @version     1.1.28
+ * @version     1.2.1
  * @author      Angus Fox
  * @copyright   (C) 2025 - Multizone Limited
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,13 +33,13 @@ class DisplayController extends BaseController
     protected $default_view = 'autometa';
 
     /**
-     * Regenerate all meta descriptions
+     * Regenerate meta descriptions with options
      *
      * @return  void
      *
-     * @since   1.0.0
+     * @since   1.2.1
      */
-    public function regenerateAll()
+    public function regenerate()
     {
         // Check CSRF token
         Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
@@ -54,11 +54,14 @@ class DisplayController extends BaseController
             return;
         }
 
+        // Get the empty_only parameter from POST
+        $emptyOnly = $app->input->post->getBool('empty_only', false);
+
         $model = $this->getModel('Autometa');
 
         if ($model) {
             try {
-                $result = $model->regenerateAllMetaDescriptions();
+                $result = $model->regenerateMetaDescriptions($emptyOnly);
 
                 if ($result['errors'] > 0) {
                     $app->enqueueMessage(
@@ -84,5 +87,19 @@ class DisplayController extends BaseController
         }
 
         $this->setRedirect('index.php?option=com_autometa');
+    }
+
+    /**
+     * Regenerate all meta descriptions (legacy method for backwards compatibility)
+     *
+     * @return  void
+     *
+     * @since   1.0.0
+     * @deprecated  1.2.1  Use regenerate() instead
+     */
+    public function regenerateAll()
+    {
+        // Redirect to new method
+        $this->regenerate();
     }
 }

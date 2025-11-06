@@ -2,7 +2,7 @@
 /**
  * @package     Regenerate Meta Descriptions
  * @subpackage  com_autometa
- * @version     1.1.28
+ * @version     1.2.1
  * @author      Angus Fox
  * @copyright   (C) 2025 - Multizone Limited
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,6 +15,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
+use Ezone\Plugin\Content\AutoMeta\Helper\MetaDescriptionHelper;
 
 /**
  * View for AutoMeta component
@@ -23,6 +24,22 @@ use Joomla\CMS\Language\Text;
  */
 class HtmlView extends BaseHtmlView
 {
+    /**
+     * Statistics array
+     *
+     * @var    array
+     * @since  1.2.1
+     */
+    protected $statistics;
+
+    /**
+     * Plugin parameters
+     *
+     * @var    \Joomla\Registry\Registry
+     * @since  1.2.1
+     */
+    protected $pluginParams;
+
     /**
      * Display the view
      *
@@ -34,6 +51,15 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null): void
     {
+        // Get model
+        $model = $this->getModel();
+
+        // Get statistics
+        $this->statistics = $model->getStatistics();
+
+        // Get plugin parameters
+        $this->pluginParams = MetaDescriptionHelper::getPluginParams();
+
         // Set the toolbar
         $this->addToolbar();
 
