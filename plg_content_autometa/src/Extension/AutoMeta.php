@@ -22,6 +22,13 @@ use Joomla\CMS\Factory;
  */
 final class AutoMeta extends CMSPlugin
 {
+    /**
+     * Load plugin language files automatically
+     *
+     * @var    boolean
+     * @since  1.0.0
+     */
+    protected $autoloadLanguage = true;
 
     /**
      * Event triggered before saving content
@@ -36,6 +43,9 @@ final class AutoMeta extends CMSPlugin
      */
     public function onContentBeforeSave($context, $article, $isNew)
     {
+        // Debug: Log that event was triggered
+        Factory::getApplication()->enqueueMessage('AutoMeta plugin triggered for context: ' . $context, 'info');
+
         // Ensure it's a Joomla article
         if ($context !== 'com_content.article') {
             return true;
@@ -46,11 +56,14 @@ final class AutoMeta extends CMSPlugin
 
         // Skip if a meta description already exists and we're not overwriting
         if (!empty($article->metadesc) && !$overwriteExisting) {
+            Factory::getApplication()->enqueueMessage('AutoMeta: Skipping - meta description already exists', 'info');
             return true;
         }
 
         // Generate a meta description using the title and introtext
         $article->metadesc = $this->generateMetaDescription($article->title, $article->introtext);
+
+        Factory::getApplication()->enqueueMessage('AutoMeta: Generated description: ' . substr($article->metadesc, 0, 50) . '...', 'success');
 
         return true;
     }
