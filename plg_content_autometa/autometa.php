@@ -2,7 +2,7 @@
 /**
  * @package     Automatic Meta Description on Save
  * @subpackage  plg_content_autometa
- * @version     1.2.0
+ * @version     1.2.1
  * @author      Angus Fox
  * @copyright   (C) 2025 - Multizone Limited
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html

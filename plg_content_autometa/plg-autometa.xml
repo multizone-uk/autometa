@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="5.0" group="content" method="upgrade">
     <name>Content - Automatic Meta Description</name>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <creationDate>6 November 2025</creationDate>
 	<author>Angus Fox</author>
 	<copyright>(C) 2025 Multizone Limited. All rights reserved.</copyright>
@@ -64,6 +64,17 @@
                     label="Include Content"
                     description="Include content from the article intro text"
                     default="1"
+                    class="btn-group"
+                >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field
+                    name="debug_mode"
+                    type="radio"
+                    label="Debug Mode"
+                    description="Show debug messages when saving articles (useful for troubleshooting)"
+                    default="0"
                     class="btn-group"
                 >
                     <option value="0">No</option>

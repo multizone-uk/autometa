@@ -2,7 +2,7 @@
 /**
  * @package     Automatic Meta Description on Save
  * @subpackage  plg_content_autometa
- * @version     1.2.0
+ * @version     1.2.1
  * @author      Angus Fox
  * @copyright   (C) 2025 - Multizone Limited
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -55,11 +55,13 @@ class AutoMeta extends CMSPlugin
 
         Log::add('AutoMeta plugin constructor called', Log::INFO, 'plg_autometa');
 
-        // Also add a message to the queue
-        try {
-            Factory::getApplication()->enqueueMessage('AutoMeta plugin constructor called', 'info');
-        } catch (\Exception $e) {
-            Log::add('Could not enqueue message: ' . $e->getMessage(), Log::WARNING, 'plg_autometa');
+        // Show message only if debug mode is enabled
+        if ($this->params->get('debug_mode', 0)) {
+            try {
+                Factory::getApplication()->enqueueMessage('AutoMeta plugin constructor called', 'info');
+            } catch (\Exception $e) {
+                Log::add('Could not enqueue message: ' . $e->getMessage(), Log::WARNING, 'plg_autometa');
+            }
         }
     }
 
@@ -76,10 +78,17 @@ class AutoMeta extends CMSPlugin
      */
     public function onContentBeforeSave($context, $article, $isNew)
     {
-        // Debug: Log that event was triggered (both to file and message queue)
+        // Check if debug mode is enabled
+        $debugMode = (bool) $this->params->get('debug_mode', 0);
+
+        // Log that event was triggered (always log to file)
         $message = 'AutoMeta plugin triggered for context: ' . $context . ' | isNew: ' . ($isNew ? 'true' : 'false');
         Log::add($message, Log::INFO, 'plg_autometa');
-        Factory::getApplication()->enqueueMessage($message, 'info');
+
+        // Only show UI message if debug mode is enabled
+        if ($debugMode) {
+            Factory::getApplication()->enqueueMessage($message, 'info');
+        }
 
         // Log article details for debugging
         Log::add('Article title: ' . ($article->title ?? 'N/A'), Log::INFO, 'plg_autometa');
@@ -88,7 +97,10 @@ class AutoMeta extends CMSPlugin
         // Ensure it's a Joomla article
         if ($context !== 'com_content.article') {
             Log::add('Context mismatch - skipping. Expected: com_content.article, Got: ' . $context, Log::INFO, 'plg_autometa');
-            Factory::getApplication()->enqueueMessage('AutoMeta: Skipping (context: ' . $context . ')', 'warning');
+
+            if ($debugMode) {
+                Factory::getApplication()->enqueueMessage('AutoMeta: Skipping (context: ' . $context . ')', 'warning');
+            }
             return true;
         }
 
@@ -100,7 +112,10 @@ class AutoMeta extends CMSPlugin
         if (!empty($article->metadesc) && !$overwriteExisting) {
             $skipMessage = 'AutoMeta: Skipping - meta description already exists';
             Log::add($skipMessage, Log::INFO, 'plg_autometa');
-            Factory::getApplication()->enqueueMessage($skipMessage, 'info');
+
+            if ($debugMode) {
+                Factory::getApplication()->enqueueMessage($skipMessage, 'info');
+            }
             return true;
         }
 
@@ -109,7 +124,10 @@ class AutoMeta extends CMSPlugin
 
         $successMessage = 'AutoMeta: Generated description: ' . substr($article->metadesc, 0, 50) . '...';
         Log::add($successMessage, Log::INFO, 'plg_autometa');
-        Factory::getApplication()->enqueueMessage($successMessage, 'success');
+
+        if ($debugMode) {
+            Factory::getApplication()->enqueueMessage($successMessage, 'success');
+        }
 
         return true;
     }
