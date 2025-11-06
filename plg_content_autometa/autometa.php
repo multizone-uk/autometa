@@ -18,6 +18,11 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
 
+// Bootstrap logging - verify this file is being loaded by Joomla
+$bootstrapLogFile = JPATH_ADMINISTRATOR . '/logs/plg_autometa_bootstrap.log';
+$bootstrapMessage = '[' . date('Y-m-d H:i:s') . '] autometa.php file loaded by Joomla' . PHP_EOL;
+@file_put_contents($bootstrapLogFile, $bootstrapMessage, FILE_APPEND);
+
 return new class () implements ServiceProviderInterface {
     /**
      * Registers the service provider with a DI container.
