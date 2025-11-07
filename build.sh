@@ -65,20 +65,21 @@ else
     echo -e "${YELLOW}⚠ Component manifest not found, skipping component build${NC}"
 fi
 
-# Generate hashes (macOS uses shasum, Linux uses sha256sum/sha384sum/sha512sum)
+# Generate plugin hashes
+echo "Generating plugin checksums..."
 if command -v shasum &> /dev/null; then
-    SHA256=$(shasum -a 256 "$PLUGIN_ZIP" | awk '{print $1}')
-    SHA384=$(shasum -a 384 "$PLUGIN_ZIP" | awk '{print $1}')
-    SHA512=$(shasum -a 512 "$PLUGIN_ZIP" | awk '{print $1}')
+    PLUGIN_SHA256=$(shasum -a 256 "$PLUGIN_ZIP" | awk '{print $1}')
+    PLUGIN_SHA384=$(shasum -a 384 "$PLUGIN_ZIP" | awk '{print $1}')
+    PLUGIN_SHA512=$(shasum -a 512 "$PLUGIN_ZIP" | awk '{print $1}')
 else
-    SHA256=$(sha256sum "$PLUGIN_ZIP" | awk '{print $1}')
-    SHA384=$(sha384sum "$PLUGIN_ZIP" | awk '{print $1}')
-    SHA512=$(sha512sum "$PLUGIN_ZIP" | awk '{print $1}')
+    PLUGIN_SHA256=$(sha256sum "$PLUGIN_ZIP" | awk '{print $1}')
+    PLUGIN_SHA384=$(sha384sum "$PLUGIN_ZIP" | awk '{print $1}')
+    PLUGIN_SHA512=$(sha512sum "$PLUGIN_ZIP" | awk '{print $1}')
 fi
 
-# Generate update XML
-UPDATE_XML="${OUTPUT_DIR}/autometa.xml"
-cat > "$UPDATE_XML" <<EOF
+# Generate plugin update XML
+PLUGIN_UPDATE_XML="${OUTPUT_DIR}/autometa.xml"
+cat > "$PLUGIN_UPDATE_XML" <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
   <update>
@@ -89,9 +90,9 @@ cat > "$UPDATE_XML" <<EOF
     <version>${VERSION}</version>
     <description>Automatically generates a meta description from the article title and lead content if it does not exist, when you save.</description>
     <client>site</client>
-    <sha256>${SHA256}</sha256>
-    <sha384>${SHA384}</sha384>
-    <sha512>${SHA512}</sha512>
+    <sha256>${PLUGIN_SHA256}</sha256>
+    <sha384>${PLUGIN_SHA384}</sha384>
+    <sha512>${PLUGIN_SHA512}</sha512>
     <downloads>
       <downloadurl type="full">${UPDATE_SERVER}/autometa-${VERSION}.zip</downloadurl>
     </downloads>
@@ -104,13 +105,65 @@ cat > "$UPDATE_XML" <<EOF
 </updates>
 EOF
 
-echo -e "${GREEN}✓ Update XML generated: ${UPDATE_XML}${NC}"
+echo -e "${GREEN}✓ Plugin update XML generated: ${PLUGIN_UPDATE_XML}${NC}"
+
+# Generate component hashes and update XML if component was built
+if [ -f "$COMPONENT_ZIP" ]; then
+    echo "Generating component checksums..."
+    if command -v shasum &> /dev/null; then
+        COMPONENT_SHA256=$(shasum -a 256 "$COMPONENT_ZIP" | awk '{print $1}')
+        COMPONENT_SHA384=$(shasum -a 384 "$COMPONENT_ZIP" | awk '{print $1}')
+        COMPONENT_SHA512=$(shasum -a 512 "$COMPONENT_ZIP" | awk '{print $1}')
+    else
+        COMPONENT_SHA256=$(sha256sum "$COMPONENT_ZIP" | awk '{print $1}')
+        COMPONENT_SHA384=$(sha384sum "$COMPONENT_ZIP" | awk '{print $1}')
+        COMPONENT_SHA512=$(sha512sum "$COMPONENT_ZIP" | awk '{print $1}')
+    fi
+
+    COMPONENT_NAME=$(grep '<name>' "$COMPONENT_MANIFEST" | sed 's/.*<name>\(.*\)<\/name>.*/\1/' | head -n1)
+    COMPONENT_UPDATE_XML="${OUTPUT_DIR}/com_autometa.xml"
+
+    cat > "$COMPONENT_UPDATE_XML" <<EOF
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+  <update>
+    <name>${COMPONENT_NAME}</name>
+    <element>com_autometa</element>
+    <type>component</type>
+    <version>${COMPONENT_VERSION}</version>
+    <description>Automatically generates meta descriptions for Joomla articles.</description>
+    <client>administrator</client>
+    <sha256>${COMPONENT_SHA256}</sha256>
+    <sha384>${COMPONENT_SHA384}</sha384>
+    <sha512>${COMPONENT_SHA512}</sha512>
+    <downloads>
+      <downloadurl type="full">${UPDATE_SERVER}/com_autometa-${COMPONENT_VERSION}.zip</downloadurl>
+    </downloads>
+    <infourl>${UPDATE_SERVER}/com_autometa-readme.html</infourl>
+    <targetplatform name="joomla" version="((4\.4)|(5\.(0|1|2|3|4|5|6|7|8|9)))"/>
+    <tags>
+      <tag>stable</tag>
+    </tags>
+  </update>
+</updates>
+EOF
+
+    echo -e "${GREEN}✓ Component update XML generated: ${COMPONENT_UPDATE_XML}${NC}"
+fi
 
 # Optional upload
 if [ -n "$SSH_USER" ] && [ -n "$SSH_HOST" ] && [ -n "$REMOTE_PATH" ]; then
     echo -e "${YELLOW}Uploading to ${SSH_HOST}...${NC}"
-    scp "$PLUGIN_ZIP" "${OUTPUT_DIR}/autometa-latest.zip" "$UPDATE_XML" \
-        "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/"
+
+    # Build upload file list
+    UPLOAD_FILES="$PLUGIN_ZIP ${OUTPUT_DIR}/autometa-latest.zip $PLUGIN_UPDATE_XML"
+
+    # Add component files if they exist
+    if [ -f "$COMPONENT_ZIP" ]; then
+        UPLOAD_FILES="$UPLOAD_FILES $COMPONENT_ZIP ${OUTPUT_DIR}/com_autometa-latest.zip $COMPONENT_UPDATE_XML"
+    fi
+
+    scp $UPLOAD_FILES "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/"
     echo -e "${GREEN}✓ Upload complete${NC}"
 else
     echo -e "${YELLOW}⚠ Skipping upload (SSH_USER, SSH_HOST, or REMOTE_PATH not set)${NC}"
