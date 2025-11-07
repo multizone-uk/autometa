@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelogs>
+    <changelog>
+        <element>com_autometa</element>
+        <type>component</type>
+        <version>1.2.1</version>
+        <note>
+            <item>Complete UI redesign with 3-card interface</item>
+            <item>Added statistics dashboard with progress bar</item>
+            <item>Display current plugin settings in component</item>
+            <item>Added "Empty Only" regeneration option to preserve existing meta descriptions</item>
+            <item>Uses shared MetaDescriptionHelper for consistency with plugin</item>
+            <item>Modernized for Joomla 5 with proper namespace structure</item>
+            <item>Fixed component class loading and autoloader registration</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>com_autometa</element>
+        <type>component</type>
+        <version>1.2.0</version>
+        <note>
+            <item>Updated for Joomla 5 compatibility</item>
+            <item>Implemented modern service provider architecture</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>com_autometa</element>
+        <type>component</type>
+        <version>1.0.0</version>
+        <note>
+            <item>Initial release</item>
+            <item>Bulk regenerate meta descriptions for all articles</item>
+        </note>
+    </changelog>
+</changelogs>

@@ -107,6 +107,13 @@ EOF
 
 echo -e "${GREEN}✓ Plugin update XML generated: ${PLUGIN_UPDATE_XML}${NC}"
 
+# Copy plugin changelog
+PLUGIN_CHANGELOG="${OUTPUT_DIR}/autometa-changelog.xml"
+if [ -f "${PLUGIN_DIR}/changelog.xml" ]; then
+    cp "${PLUGIN_DIR}/changelog.xml" "$PLUGIN_CHANGELOG"
+    echo -e "${GREEN}✓ Plugin changelog copied: ${PLUGIN_CHANGELOG}${NC}"
+fi
+
 # Generate component hashes and update XML if component was built
 if [ -f "$COMPONENT_ZIP" ]; then
     echo "Generating component checksums..."
@@ -149,6 +156,13 @@ if [ -f "$COMPONENT_ZIP" ]; then
 EOF
 
     echo -e "${GREEN}✓ Component update XML generated: ${COMPONENT_UPDATE_XML}${NC}"
+
+    # Copy component changelog
+    COMPONENT_CHANGELOG="${OUTPUT_DIR}/com_autometa-changelog.xml"
+    if [ -f "${COMPONENT_DIR}/changelog.xml" ]; then
+        cp "${COMPONENT_DIR}/changelog.xml" "$COMPONENT_CHANGELOG"
+        echo -e "${GREEN}✓ Component changelog copied: ${COMPONENT_CHANGELOG}${NC}"
+    fi
 fi
 
 # Optional upload
@@ -158,9 +172,19 @@ if [ -n "$SSH_USER" ] && [ -n "$SSH_HOST" ] && [ -n "$REMOTE_PATH" ]; then
     # Build upload file list
     UPLOAD_FILES="$PLUGIN_ZIP ${OUTPUT_DIR}/autometa-latest.zip $PLUGIN_UPDATE_XML"
 
+    # Add plugin changelog if it exists
+    if [ -f "$PLUGIN_CHANGELOG" ]; then
+        UPLOAD_FILES="$UPLOAD_FILES $PLUGIN_CHANGELOG"
+    fi
+
     # Add component files if they exist
     if [ -f "$COMPONENT_ZIP" ]; then
         UPLOAD_FILES="$UPLOAD_FILES $COMPONENT_ZIP ${OUTPUT_DIR}/com_autometa-latest.zip $COMPONENT_UPDATE_XML"
+
+        # Add component changelog if it exists
+        if [ -f "$COMPONENT_CHANGELOG" ]; then
+            UPLOAD_FILES="$UPLOAD_FILES $COMPONENT_CHANGELOG"
+        fi
     fi
 
     scp $UPLOAD_FILES "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/"
