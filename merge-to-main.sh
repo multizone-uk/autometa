@@ -1,5 +1,5 @@
 #!/bin/bash
-# Merge component modernization branch to main
+# Merge plugin display error fix branch to main
 # Run this script from your local machine
 
 set -e
@@ -13,8 +13,8 @@ git checkout main
 echo "Pulling latest main..."
 git pull origin main
 
-echo "Merging component modernization branch..."
-git merge claude/component-modernization-011CUqTHE4van52R8VYeFqqj -m "Merge component modernization v1.2.1"
+echo "Merging plugin display error fix branch..."
+git merge claude/fix-plugin-display-error-011CUxjRd5P1p88iMizwST6A -m "Merge plugin display error fix v1.2.3"
 
 echo "Pushing to origin/main..."
 git push origin main
