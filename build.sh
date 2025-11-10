@@ -193,6 +193,9 @@ if [ -n "$SSH_USER" ] && [ -n "$SSH_HOST" ] && [ -n "$REMOTE_PATH" ]; then
     # Add HTML readme/changelog if it exists
     if [ -f "$HTML_README" ]; then
         UPLOAD_FILES="$UPLOAD_FILES $HTML_README"
+        echo -e "${GREEN}  - Including HTML readme in upload${NC}"
+    else
+        echo -e "${YELLOW}  ⚠ HTML readme not found: $HTML_README${NC}"
     fi
 
     # Add component files if they exist
@@ -204,6 +207,11 @@ if [ -n "$SSH_USER" ] && [ -n "$SSH_HOST" ] && [ -n "$REMOTE_PATH" ]; then
             UPLOAD_FILES="$UPLOAD_FILES $COMPONENT_CHANGELOG"
         fi
     fi
+
+    echo -e "${YELLOW}Files to upload:${NC}"
+    for file in $UPLOAD_FILES; do
+        echo "  - $file"
+    done
 
     scp $UPLOAD_FILES "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}/"
     echo -e "${GREEN}✓ Upload complete${NC}"
