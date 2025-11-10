@@ -87,7 +87,7 @@ Or use in GitHub Actions with secrets - see `.github/workflows/build.yml.example
 - ~Centralize version management~
 - Add unit tests
 - Set up CI/CD pipeline
-- Create CHANGELOG.md
+- ~Create CHANGELOG.md~
 
 ## Development Notes
 

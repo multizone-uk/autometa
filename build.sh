@@ -114,6 +114,19 @@ if [ -f "${PLUGIN_DIR}/changelog.xml" ]; then
     echo -e "${GREEN}✓ Plugin changelog copied: ${PLUGIN_CHANGELOG}${NC}"
 fi
 
+# Generate HTML changelog/readme
+echo "Generating HTML changelog..."
+HTML_README="${OUTPUT_DIR}/autometa-readme.html"
+if command -v python3 &> /dev/null; then
+    if python3 generate_changelog_html.py; then
+        echo -e "${GREEN}✓ HTML changelog generated: ${HTML_README}${NC}"
+    else
+        echo -e "${YELLOW}⚠ Failed to generate HTML changelog${NC}"
+    fi
+else
+    echo -e "${YELLOW}⚠ Python3 not found, skipping HTML changelog generation${NC}"
+fi
+
 # Generate component hashes and update XML if component was built
 if [ -f "$COMPONENT_ZIP" ]; then
     echo "Generating component checksums..."
@@ -175,6 +188,11 @@ if [ -n "$SSH_USER" ] && [ -n "$SSH_HOST" ] && [ -n "$REMOTE_PATH" ]; then
     # Add plugin changelog if it exists
     if [ -f "$PLUGIN_CHANGELOG" ]; then
         UPLOAD_FILES="$UPLOAD_FILES $PLUGIN_CHANGELOG"
+    fi
+
+    # Add HTML readme/changelog if it exists
+    if [ -f "$HTML_README" ]; then
+        UPLOAD_FILES="$UPLOAD_FILES $HTML_README"
     fi
 
     # Add component files if they exist

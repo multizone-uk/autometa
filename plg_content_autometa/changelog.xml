@@ -3,6 +3,25 @@
     <changelog>
         <element>autometa</element>
         <type>plugin</type>
+        <version>1.2.3</version>
+        <note>
+            <item>Removed file logging entirely to prevent permission warnings</item>
+            <item>Fixed logging permission errors by checking directory writability</item>
+            <item>Improved error handling and logging stability</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>autometa</element>
+        <type>plugin</type>
+        <version>1.2.2</version>
+        <note>
+            <item>Fixed plugin display error caused by permission denied warnings</item>
+            <item>Enhanced plugin initialization reliability</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>autometa</element>
+        <type>plugin</type>
         <version>1.2.1</version>
         <note>
             <item>Added conditional debug mode (can be enabled/disabled in plugin settings)</item>
