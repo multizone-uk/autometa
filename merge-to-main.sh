@@ -1,8 +1,28 @@
 #!/bin/bash
-# Merge plugin display error fix branch to main
+# Generic script to merge a feature branch to main
+# Usage: ./merge-to-main.sh <branch-name> [commit-message]
 # Run this script from your local machine
 
 set -e
+
+# Check if branch name is provided
+if [ -z "$1" ]; then
+    echo "Error: Branch name is required"
+    echo ""
+    echo "Usage: $0 <branch-name> [commit-message]"
+    echo ""
+    echo "Examples:"
+    echo "  $0 claude/add-changelog-build-upload-011CUzJ9QdBJXHB4o2DdjSQc"
+    echo "  $0 claude/add-changelog-build-upload-011CUzJ9QdBJXHB4o2DdjSQc 'Add changelog and build upload'"
+    exit 1
+fi
+
+BRANCH_NAME="$1"
+COMMIT_MESSAGE="${2:-Merge $BRANCH_NAME}"
+
+echo "Branch to merge: $BRANCH_NAME"
+echo "Commit message: $COMMIT_MESSAGE"
+echo ""
 
 echo "Fetching latest from origin..."
 git fetch origin
@@ -13,8 +33,8 @@ git checkout main
 echo "Pulling latest main..."
 git pull origin main
 
-echo "Merging plugin display error fix branch..."
-git merge claude/fix-plugin-display-error-011CUxjRd5P1p88iMizwST6A -m "Merge plugin display error fix v1.2.3"
+echo "Merging $BRANCH_NAME..."
+git merge "$BRANCH_NAME" -m "$COMMIT_MESSAGE"
 
 echo "Pushing to origin/main..."
 git push origin main
