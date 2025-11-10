@@ -54,183 +54,99 @@ def generate_html(plugin_entries, component_entries, output_file):
     <title>AutoMeta - Changelog</title>
     <style>
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             line-height: 1.6;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #fff;
             color: #333;
         }}
-        .header {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }}
-        .header h1 {{
-            margin: 0 0 10px 0;
-            font-size: 2.5em;
-        }}
-        .header p {{
-            margin: 0;
-            opacity: 0.9;
-            font-size: 1.1em;
-        }}
-        .section {{
-            background: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }}
-        .section h2 {{
-            margin-top: 0;
-            color: #667eea;
-            border-bottom: 2px solid #667eea;
+        h1 {{
+            color: #000;
+            border-bottom: 2px solid #000;
             padding-bottom: 10px;
+            margin-bottom: 10px;
         }}
-        .version {{
-            margin-bottom: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            border-radius: 4px;
+        h2 {{
+            color: #000;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
         }}
-        .version h3 {{
-            margin: 0 0 10px 0;
+        h3 {{
             color: #333;
-            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }}
-        .version-badge {{
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: bold;
-            margin-right: 10px;
-        }}
-        .type-badge {{
-            display: inline-block;
-            background: #764ba2;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: normal;
-        }}
-        .version ul {{
-            margin: 15px 0 0 0;
+        ul {{
+            margin: 10px 0;
             padding-left: 25px;
         }}
-        .version li {{
-            margin-bottom: 8px;
-            line-height: 1.5;
+        li {{
+            margin-bottom: 5px;
         }}
         .footer {{
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
             text-align: center;
-            margin-top: 40px;
-            padding: 20px;
             color: #666;
             font-size: 0.9em;
         }}
         .footer a {{
-            color: #667eea;
+            color: #0066cc;
             text-decoration: none;
         }}
         .footer a:hover {{
             text-decoration: underline;
         }}
-        @media (max-width: 600px) {{
-            body {{
-                padding: 10px;
-            }}
-            .header {{
-                padding: 20px;
-            }}
-            .header h1 {{
-                font-size: 1.8em;
-            }}
-            .section {{
-                padding: 15px;
-            }}
-        }}
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚀 AutoMeta</h1>
-        <p>Automatic Meta Description for Joomla - Release History</p>
-    </div>
+    <h1>AutoMeta - Changelog</h1>
+    <p>Automatic Meta Description for Joomla - Release History</p>
 """
 
     # Plugin changelog section
     if plugin_entries:
         html_content += """
-    <div class="section">
-        <h2>Plugin Changelog</h2>
+    <h2>Plugin Changelog</h2>
 """
         for entry in plugin_entries:
             html_content += f"""
-        <div class="version">
-            <h3>
-                <span class="version-badge">v{entry['version']}</span>
-                <span class="type-badge">{entry['type']}</span>
-            </h3>
+    <h3>Version {entry['version']}</h3>
 """
             if entry['items']:
-                html_content += "            <ul>\n"
+                html_content += "    <ul>\n"
                 for item in entry['items']:
-                    html_content += f"                <li>{item}</li>\n"
-                html_content += "            </ul>\n"
-
-            html_content += "        </div>\n"
-
-        html_content += "    </div>\n"
+                    html_content += f"        <li>{item}</li>\n"
+                html_content += "    </ul>\n"
 
     # Component changelog section
     if component_entries:
         html_content += """
-    <div class="section">
-        <h2>Component Changelog</h2>
+    <h2>Component Changelog</h2>
 """
         for entry in component_entries:
             html_content += f"""
-        <div class="version">
-            <h3>
-                <span class="version-badge">v{entry['version']}</span>
-                <span class="type-badge">{entry['type']}</span>
-            </h3>
+    <h3>Version {entry['version']}</h3>
 """
             if entry['items']:
-                html_content += "            <ul>\n"
+                html_content += "    <ul>\n"
                 for item in entry['items']:
-                    html_content += f"                <li>{item}</li>\n"
-                html_content += "            </ul>\n"
-
-            html_content += "        </div>\n"
-
-        html_content += "    </div>\n"
+                    html_content += f"        <li>{item}</li>\n"
+                html_content += "    </ul>\n"
 
     # Footer
     current_year = datetime.now().year
     html_content += f"""
     <div class="footer">
-        <p>
-            <strong>AutoMeta</strong> - Automatic Meta Description for Joomla<br>
-            Copyright &copy; {current_year} <a href="https://www.multizone.co.uk" target="_blank">Multizone Limited</a><br>
-            Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GNU/GPLv3</a>
-        </p>
-        <p>
-            <a href="https://www.multizone.co.uk/extensions/joomla-content-plugin-automatic-meta-description-ezone.html" target="_blank">Documentation & Support</a>
-        </p>
-        <p style="margin-top: 10px; font-size: 0.85em; color: #999;">
-            Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-        </p>
+        <p><strong>AutoMeta</strong> - Automatic Meta Description for Joomla</p>
+        <p>Copyright &copy; {current_year} <a href="https://www.multizone.co.uk" target="_blank">Multizone Limited</a> |
+        Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GNU/GPLv3</a></p>
+        <p><a href="https://www.multizone.co.uk/extensions/joomla-content-plugin-automatic-meta-description-ezone.html" target="_blank">Documentation & Support</a></p>
     </div>
 </body>
 </html>
