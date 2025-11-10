@@ -83,11 +83,11 @@ Or use in GitHub Actions with secrets - see `.github/workflows/build.yml.example
 
 - ~Implement namespaces (PSR-4) for Joomla 4/5 best practices~
 - ~Modernize component to use current Joomla MVC patterns~
-- Add service provider for dependency injection
+- ~Service provider for dependency injection~
 - ~Centralize version management~
-- Add unit tests
-- Set up CI/CD pipeline
 - ~Create CHANGELOG.md~
+- Add unit tests
+- Activate CI/CD pipeline (example workflow ready at `.github/workflows/build.yml.example`)
 
 ## Development Notes
 
