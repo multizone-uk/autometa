@@ -3,6 +3,16 @@
     <changelog>
         <element>com_autometa</element>
         <type>component</type>
+        <version>2.0.1</version>
+        <note>
+            <item>Centralized update management through package-level update server only</item>
+            <item>Removed individual update servers from component manifest</item>
+            <item>All updates now managed through unified AutoMeta package</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>com_autometa</element>
+        <type>component</type>
         <version>2.0.0</version>
         <note>
             <item>Major release: Now part of unified AutoMeta package with plugin</item>
