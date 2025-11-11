@@ -193,6 +193,12 @@ EOF
     # Copy package manifest
     cp "pkg_autometa.xml" "$PACKAGE_DIR/"
 
+    # Copy package changelog (as changelog.xml for Joomla to display in Extensions: Manage)
+    if [ -f "pkg_autometa_changelog.xml" ]; then
+        cp "pkg_autometa_changelog.xml" "${PACKAGE_DIR}/changelog.xml"
+        echo -e "${GREEN}  - Including changelog.xml in package${NC}"
+    fi
+
     # Create package zip from temporary directory
     (cd "$PACKAGE_DIR" && zip -r "../${PACKAGE_ZIP}" *)
 
