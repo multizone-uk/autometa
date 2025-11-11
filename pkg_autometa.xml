@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" version="5.0" method="upgrade">
+    <name>AutoMeta Package</name>
+    <packagename>autometa</packagename>
+    <version>1.2.3</version>
+    <creationDate>November 2025</creationDate>
+    <author>Angus Fox</author>
+    <copyright>(C) 2025 Multizone Limited. All rights reserved.</copyright>
+    <authorEmail>admin@multizone.co.uk</authorEmail>
+    <authorUrl>https://www.multizone.co.uk</authorUrl>
+    <license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+    <description>Complete AutoMeta package including the AutoMeta component and plugin for automatic meta description generation in Joomla articles.</description>
+
+    <files>
+        <file type="component" id="com_autometa">com_autometa.zip</file>
+        <file type="plugin" id="autometa" group="content">plg_content_autometa.zip</file>
+    </files>
+
+    <updateservers>
+        <server type="extension" name="AutoMeta Package - EZONE">https://www.multizone.co.uk/updates/pkg_autometa.xml</server>
+    </updateservers>
+    <changelogurl>https://www.multizone.co.uk/updates/pkg_autometa-changelog.xml</changelogurl>
+</extension>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelogs>
+    <changelog>
+        <element>pkg_autometa</element>
+        <type>package</type>
+        <version>1.2.3</version>
+        <note>
+            <item>Initial package release combining AutoMeta component and plugin</item>
+            <item>Plugin: Removed file logging entirely to prevent permission warnings</item>
+            <item>Plugin: Fixed logging permission errors by checking directory writability</item>
+            <item>Plugin: Improved error handling and logging stability</item>
+            <item>Component: Statistics and configuration management</item>
+        </note>
+    </changelog>
+</changelogs>

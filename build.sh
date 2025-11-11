@@ -176,6 +176,83 @@ EOF
         cp "${COMPONENT_DIR}/changelog.xml" "$COMPONENT_CHANGELOG"
         echo -e "${GREEN}✓ Component changelog copied: ${COMPONENT_CHANGELOG}${NC}"
     fi
+
+    # Build package (only if both component and plugin exist)
+    echo "Building package..."
+    PACKAGE_VERSION="${VERSION}"  # Use plugin version as package version
+    PACKAGE_DIR="${OUTPUT_DIR}/package_tmp"
+    PACKAGE_ZIP="pkg_autometa-${PACKAGE_VERSION}.zip"
+
+    # Create temporary package directory
+    mkdir -p "$PACKAGE_DIR"
+
+    # Copy individual extension zips to package directory with standardized names
+    cp "$COMPONENT_ZIP" "${PACKAGE_DIR}/com_autometa.zip"
+    cp "$PLUGIN_ZIP" "${PACKAGE_DIR}/plg_content_autometa.zip"
+
+    # Copy package manifest
+    cp "pkg_autometa.xml" "$PACKAGE_DIR/"
+
+    # Create package zip from temporary directory
+    (cd "$PACKAGE_DIR" && zip -r "../${PACKAGE_ZIP}" *)
+
+    # Clean up temporary directory
+    rm -rf "$PACKAGE_DIR"
+
+    # Create latest symlink/copy
+    cp "${OUTPUT_DIR}/${PACKAGE_ZIP}" "${OUTPUT_DIR}/pkg_autometa-latest.zip"
+
+    # Update PACKAGE_ZIP to full path for later use
+    PACKAGE_ZIP="${OUTPUT_DIR}/${PACKAGE_ZIP}"
+
+    echo -e "${GREEN}✓ Package built: ${PACKAGE_ZIP}${NC}"
+
+    # Generate package hashes
+    echo "Generating package checksums..."
+    if command -v shasum &> /dev/null; then
+        PACKAGE_SHA256=$(shasum -a 256 "$PACKAGE_ZIP" | awk '{print $1}')
+        PACKAGE_SHA384=$(shasum -a 384 "$PACKAGE_ZIP" | awk '{print $1}')
+        PACKAGE_SHA512=$(shasum -a 512 "$PACKAGE_ZIP" | awk '{print $1}')
+    else
+        PACKAGE_SHA256=$(sha256sum "$PACKAGE_ZIP" | awk '{print $1}')
+        PACKAGE_SHA384=$(sha384sum "$PACKAGE_ZIP" | awk '{print $1}')
+        PACKAGE_SHA512=$(sha512sum "$PACKAGE_ZIP" | awk '{print $1}')
+    fi
+
+    # Generate package update XML
+    PACKAGE_UPDATE_XML="${OUTPUT_DIR}/pkg_autometa.xml"
+    cat > "$PACKAGE_UPDATE_XML" <<EOF
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+  <update>
+    <name>AutoMeta Package</name>
+    <element>pkg_autometa</element>
+    <type>package</type>
+    <version>${PACKAGE_VERSION}</version>
+    <description>Complete AutoMeta package including the AutoMeta component and plugin for automatic meta description generation in Joomla articles.</description>
+    <sha256>${PACKAGE_SHA256}</sha256>
+    <sha384>${PACKAGE_SHA384}</sha384>
+    <sha512>${PACKAGE_SHA512}</sha512>
+    <downloads>
+      <downloadurl type="full">${UPDATE_SERVER}/pkg_autometa-${PACKAGE_VERSION}.zip</downloadurl>
+    </downloads>
+    <infourl>${UPDATE_SERVER}/pkg_autometa-readme.html</infourl>
+    <targetplatform name="joomla" version="((4\.4)|(5\.(0|1|2|3|4|5|6|7|8|9)))"/>
+    <tags>
+      <tag>stable</tag>
+    </tags>
+  </update>
+</updates>
+EOF
+
+    echo -e "${GREEN}✓ Package update XML generated: ${PACKAGE_UPDATE_XML}${NC}"
+
+    # Copy package changelog
+    PACKAGE_CHANGELOG="${OUTPUT_DIR}/pkg_autometa-changelog.xml"
+    if [ -f "pkg_autometa_changelog.xml" ]; then
+        cp "pkg_autometa_changelog.xml" "$PACKAGE_CHANGELOG"
+        echo -e "${GREEN}✓ Package changelog copied: ${PACKAGE_CHANGELOG}${NC}"
+    fi
 fi
 
 # Optional upload
@@ -205,6 +282,16 @@ if [ -n "$SSH_USER" ] && [ -n "$SSH_HOST" ] && [ -n "$REMOTE_PATH" ]; then
         # Add component changelog if it exists
         if [ -f "$COMPONENT_CHANGELOG" ]; then
             UPLOAD_FILES="$UPLOAD_FILES $COMPONENT_CHANGELOG"
+        fi
+
+        # Add package files if they exist
+        if [ -f "$PACKAGE_ZIP" ]; then
+            UPLOAD_FILES="$UPLOAD_FILES $PACKAGE_ZIP ${OUTPUT_DIR}/pkg_autometa-latest.zip $PACKAGE_UPDATE_XML"
+
+            # Add package changelog if it exists
+            if [ -f "$PACKAGE_CHANGELOG" ]; then
+                UPLOAD_FILES="$UPLOAD_FILES $PACKAGE_CHANGELOG"
+            fi
         fi
     fi
 
