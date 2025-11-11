@@ -23,8 +23,4 @@
             <language tag="en-GB">en-GB/com_autometa.sys.ini</language>
         </languages>
     </administration>
-    <updateservers>
-        <server type="extension" name="AutoMeta Component - EZONE">https://www.multizone.co.uk/updates/com_autometa.xml</server>
-    </updateservers>
-    <changelogurl>https://www.multizone.co.uk/updates/com_autometa-changelog.xml</changelogurl>
 </extension>

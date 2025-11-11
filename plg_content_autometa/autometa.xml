@@ -83,8 +83,4 @@
             </fieldset>
         </fields>
     </config>
-    <updateservers>
-        <server type="extension" name="Automatic Meta Description - EZONE">https://www.multizone.co.uk/updates/autometa.xml</server>
-    </updateservers>
-    <changelogurl>https://www.multizone.co.uk/updates/autometa-changelog.xml</changelogurl>
 </extension>
