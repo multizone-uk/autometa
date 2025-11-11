@@ -193,10 +193,13 @@ EOF
     # Copy package manifest
     cp "pkg_autometa.xml" "$PACKAGE_DIR/"
 
-    # Copy package changelog (as changelog.xml for Joomla to display in Extensions: Manage)
+    # Copy package changelog (for reference; packages fetch changelogs remotely via AJAX)
+    # Note: Unlike components/plugins, package changelogs are NOT read from the installed package.
+    # Joomla fetches them via AJAX from the <changelogurl> in the manifest when displaying in Extensions: Manage.
+    # This file is included for completeness and documentation purposes.
     if [ -f "pkg_autometa_changelog.xml" ]; then
         cp "pkg_autometa_changelog.xml" "${PACKAGE_DIR}/changelog.xml"
-        echo -e "${GREEN}  - Including changelog.xml in package${NC}"
+        echo -e "${GREEN}  - Including changelog.xml in package (for reference)${NC}"
     fi
 
     # Create package zip from temporary directory
