@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelogs>
     <changelog>
-        <element>pkg_autometa</element>
+        <element>autometa</element>
         <type>package</type>
         <version>2.0.1</version>
         <note>
@@ -12,7 +12,7 @@
         </note>
     </changelog>
     <changelog>
-        <element>pkg_autometa</element>
+        <element>autometa</element>
         <type>package</type>
         <version>2.0.0</version>
         <note>
