@@ -3,6 +3,17 @@
     <changelog>
         <element>pkg_autometa</element>
         <type>package</type>
+        <version>2.0.1</version>
+        <note>
+            <item>Centralized update management through package-level update server only</item>
+            <item>Removed individual update servers from component and plugin manifests</item>
+            <item>Prevents version mismatches between component and plugin</item>
+            <item>Simplified update process with unified package updates</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>pkg_autometa</element>
+        <type>package</type>
         <version>2.0.0</version>
         <note>
             <item>Unified AutoMeta package with component (v2.0.0) and plugin (v2.0.0)</item>

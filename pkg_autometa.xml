@@ -2,7 +2,7 @@
 <extension type="package" version="5.0" method="upgrade">
     <name>AutoMeta Package</name>
     <packagename>autometa</packagename>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <creationDate>11 November 2025</creationDate>
     <author>Angus Fox</author>
     <copyright>(C) 2025 Multizone Limited. All rights reserved.</copyright>
