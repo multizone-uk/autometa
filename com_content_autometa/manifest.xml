@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="5.0" method="upgrade">
-    <name>com_autometa</name>
+    <name>AutoMeta</name>
     <version>2.0.0</version>
     <creationDate>2025-11-11</creationDate>
     <author>Angus Fox</author>
