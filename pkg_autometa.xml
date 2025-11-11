@@ -14,6 +14,7 @@
     <files>
         <file type="component" id="com_autometa">com_autometa.zip</file>
         <file type="plugin" id="autometa" group="content">plg_content_autometa.zip</file>
+        <filename>changelog.xml</filename>
     </files>
 
     <updateservers>
