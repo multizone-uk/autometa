@@ -3,6 +3,16 @@
     <changelog>
         <element>autometa</element>
         <type>plugin</type>
+        <version>2.0.0</version>
+        <note>
+            <item>Major release: Now part of unified AutoMeta package with component</item>
+            <item>Package-based installation and updates for streamlined management</item>
+            <item>Synchronized version numbering across all extensions</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>autometa</element>
+        <type>plugin</type>
         <version>1.2.3</version>
         <note>
             <item>Removed file logging entirely to prevent permission warnings</item>

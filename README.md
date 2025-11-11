@@ -1,23 +1,24 @@
 
-# Automatic Meta Description
+# AutoMeta Package - Automatic Meta Description
 
-This is a Joomla! plugin which automatically generates a meta description from the article title and content if it does not exist, when you save.
+A complete Joomla extension package that automatically generates meta descriptions for articles. The package includes both a plugin for automatic generation on save and a component for bulk regeneration and management.
 
 **Features:**
-- Automatically generates meta descriptions on article save
+- **Plugin**: Automatically generates meta descriptions on article save
+- **Component**: Bulk regeneration of meta descriptions for all articles
+- **Unified Package**: Single installation for both extensions
 - Configurable character limit (default 160, optimal for SEO)
 - Smart truncation at word boundaries
 - Configurable separator between title and content
 - Option to include/exclude title or content
 - Option to overwrite existing descriptions
-- Component for bulk regeneration of all articles
+- Statistics dashboard showing meta description coverage
 - Batch processing to handle large sites efficiently
 - CSRF protection and permission checks
 - Error handling and logging
+- Automatic updates through Joomla update system
 
-It includes a script to generate the plugin from the source and create the required XML and deploy the plugin to an update server.
-
-It contains a component too for bulk regeneration but this is not published in the Joomla Extension Directory.
+The build script generates a unified package that installs both the component and plugin from a single zip file using standard Joomla package mechanisms.
 
 
 
@@ -50,18 +51,25 @@ It contains a component too for bulk regeneration but this is not published in t
 
 ## Building
 
-Build the plugin locally:
+Build the complete package locally:
 
 ```bash
 ./build.sh
 ```
 
 This creates distribution files in `dist/`:
-- `autometa-{version}.zip` - Versioned plugin package
-- `autometa-latest.zip` - Latest version copy
-- `autometa.xml` - Update server XML with hashes
+- **Package** (recommended):
+  - `pkg_autometa-{version}.zip` - Complete package with component and plugin
+  - `pkg_autometa-latest.zip` - Latest package version
+  - `pkg_autometa.xml` - Package update server XML with hashes
+  - `pkg_autometa-changelog.xml` - Package changelog
+  - `pkg_autometa-readme.html` - Package changelog in HTML format
+- **Individual Extensions** (also built):
+  - `autometa-{version}.zip` - Plugin only
+  - `com_autometa-{version}.zip` - Component only
+  - Update XMLs and changelogs for each
 
-Version is automatically read from `plg_content_autometa/plg-autometa.xml`.
+Version is automatically read from `plg_content_autometa/autometa.xml` and synchronized across all extensions.
 
 ### Optional: Upload to Update Server
 

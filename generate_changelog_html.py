@@ -43,7 +43,7 @@ def parse_changelog(xml_file):
         return []
 
 
-def generate_html(plugin_entries, component_entries, output_file):
+def generate_html(package_entries, plugin_entries, component_entries, output_file):
     """Generate HTML changelog from parsed entries."""
 
     html_content = f"""<!DOCTYPE html>
@@ -51,7 +51,7 @@ def generate_html(plugin_entries, component_entries, output_file):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoMeta - Changelog</title>
+    <title>AutoMeta Package - Changelog</title>
     <style>
         body {{
             font-family: Arial, Helvetica, sans-serif;
@@ -87,6 +87,12 @@ def generate_html(plugin_entries, component_entries, output_file):
         li {{
             margin-bottom: 5px;
         }}
+        .intro {{
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            margin-bottom: 30px;
+        }}
         .footer {{
             margin-top: 50px;
             padding-top: 20px;
@@ -105,31 +111,19 @@ def generate_html(plugin_entries, component_entries, output_file):
     </style>
 </head>
 <body>
-    <h1>AutoMeta - Changelog</h1>
-    <p>Automatic Meta Description for Joomla - Release History</p>
+    <h1>AutoMeta Package - Changelog</h1>
+    <div class="intro">
+        <p><strong>AutoMeta Package</strong> - Complete solution for automatic meta description generation in Joomla</p>
+        <p>This package includes the AutoMeta component and plugin for unified installation and management.</p>
+    </div>
 """
 
-    # Plugin changelog section
-    if plugin_entries:
+    # Package changelog section (primary)
+    if package_entries:
         html_content += """
-    <h2>Plugin Changelog</h2>
+    <h2>Package Release History</h2>
 """
-        for entry in plugin_entries:
-            html_content += f"""
-    <h3>Version {entry['version']}</h3>
-"""
-            if entry['items']:
-                html_content += "    <ul>\n"
-                for item in entry['items']:
-                    html_content += f"        <li>{item}</li>\n"
-                html_content += "    </ul>\n"
-
-    # Component changelog section
-    if component_entries:
-        html_content += """
-    <h2>Component Changelog</h2>
-"""
-        for entry in component_entries:
+        for entry in package_entries:
             html_content += f"""
     <h3>Version {entry['version']}</h3>
 """
@@ -164,13 +158,21 @@ def generate_html(plugin_entries, component_entries, output_file):
 
 def main():
     # Define paths
+    package_changelog = Path('pkg_autometa_changelog.xml')
     plugin_changelog = Path('plg_content_autometa/changelog.xml')
     component_changelog = Path('com_content_autometa/changelog.xml')
-    output_file = Path('dist/autometa-readme.html')
+    output_file = Path('dist/pkg_autometa-readme.html')
 
     # Parse changelogs
+    package_entries = []
     plugin_entries = []
     component_entries = []
+
+    if package_changelog.exists():
+        package_entries = parse_changelog(package_changelog)
+        print(f"✓ Parsed {len(package_entries)} package changelog entries")
+    else:
+        print(f"⚠ Package changelog not found: {package_changelog}", file=sys.stderr)
 
     if plugin_changelog.exists():
         plugin_entries = parse_changelog(plugin_changelog)
@@ -184,7 +186,7 @@ def main():
     else:
         print(f"⚠ Component changelog not found: {component_changelog}", file=sys.stderr)
 
-    if not plugin_entries and not component_entries:
+    if not package_entries and not plugin_entries and not component_entries:
         print("Error: No changelog entries found", file=sys.stderr)
         return 1
 
@@ -192,7 +194,7 @@ def main():
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Generate HTML
-    if generate_html(plugin_entries, component_entries, output_file):
+    if generate_html(package_entries, plugin_entries, component_entries, output_file):
         return 0
     else:
         return 1

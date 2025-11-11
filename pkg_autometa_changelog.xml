@@ -3,13 +3,14 @@
     <changelog>
         <element>pkg_autometa</element>
         <type>package</type>
-        <version>1.2.3</version>
+        <version>2.0.0</version>
         <note>
-            <item>Initial package release combining AutoMeta component and plugin</item>
-            <item>Plugin: Removed file logging entirely to prevent permission warnings</item>
-            <item>Plugin: Fixed logging permission errors by checking directory writability</item>
-            <item>Plugin: Improved error handling and logging stability</item>
-            <item>Component: Statistics and configuration management</item>
+            <item>Unified AutoMeta package with component (v2.0.0) and plugin (v2.0.0)</item>
+            <item>Single-file installation and uninstallation using Joomla package standards</item>
+            <item>Synchronized version numbering across all extensions</item>
+            <item>Automated update support through Joomla update system</item>
+            <item>Component: Statistics dashboard, bulk regeneration, and settings display</item>
+            <item>Plugin: Automatic meta description generation on article save</item>
         </note>
     </changelog>
 </changelogs>

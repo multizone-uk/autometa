@@ -3,6 +3,16 @@
     <changelog>
         <element>com_autometa</element>
         <type>component</type>
+        <version>2.0.0</version>
+        <note>
+            <item>Major release: Now part of unified AutoMeta package with plugin</item>
+            <item>Package-based installation and updates for streamlined management</item>
+            <item>Synchronized version numbering across all extensions</item>
+        </note>
+    </changelog>
+    <changelog>
+        <element>com_autometa</element>
+        <type>component</type>
         <version>1.2.1</version>
         <note>
             <item>Complete UI redesign with 3-card interface</item>

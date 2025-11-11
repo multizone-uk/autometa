@@ -116,10 +116,10 @@ fi
 
 # Generate HTML changelog/readme
 echo "Generating HTML changelog..."
-HTML_README="${OUTPUT_DIR}/autometa-readme.html"
+PACKAGE_HTML_README="${OUTPUT_DIR}/pkg_autometa-readme.html"
 if command -v python3 &> /dev/null; then
     if python3 generate_changelog_html.py; then
-        echo -e "${GREEN}✓ HTML changelog generated: ${HTML_README}${NC}"
+        echo -e "${GREEN}✓ HTML changelog generated: ${PACKAGE_HTML_README}${NC}"
     else
         echo -e "${YELLOW}⚠ Failed to generate HTML changelog${NC}"
     fi
@@ -268,11 +268,11 @@ if [ -n "$SSH_USER" ] && [ -n "$SSH_HOST" ] && [ -n "$REMOTE_PATH" ]; then
     fi
 
     # Add HTML readme/changelog if it exists
-    if [ -f "$HTML_README" ]; then
-        UPLOAD_FILES="$UPLOAD_FILES $HTML_README"
+    if [ -f "$PACKAGE_HTML_README" ]; then
+        UPLOAD_FILES="$UPLOAD_FILES $PACKAGE_HTML_README"
         echo -e "${GREEN}  - Including HTML readme in upload${NC}"
     else
-        echo -e "${YELLOW}  ⚠ HTML readme not found: $HTML_README${NC}"
+        echo -e "${YELLOW}  ⚠ HTML readme not found: $PACKAGE_HTML_README${NC}"
     fi
 
     # Add component files if they exist
