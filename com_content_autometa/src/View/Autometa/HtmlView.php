@@ -41,6 +41,30 @@ class HtmlView extends BaseHtmlView
     protected $pluginParams;
 
     /**
+     * Regeneration history
+     *
+     * @var    array
+     * @since  2.1.0
+     */
+    protected $regenerationHistory;
+
+    /**
+     * Top regenerated articles
+     *
+     * @var    array
+     * @since  2.1.0
+     */
+    protected $topArticles;
+
+    /**
+     * Whether user has subscription access
+     *
+     * @var    boolean
+     * @since  2.1.0
+     */
+    protected $hasSubscription;
+
+    /**
      * Display the view
      *
      * @param   string  $tpl  The name of the template file to parse
@@ -59,6 +83,15 @@ class HtmlView extends BaseHtmlView
 
         // Get plugin parameters
         $this->pluginParams = MetaDescriptionHelper::getPluginParams();
+
+        // Check subscription access
+        $this->hasSubscription = $model->hasSubscriptionAccess();
+
+        // Get analytics data if user has subscription
+        if ($this->hasSubscription) {
+            $this->regenerationHistory = $model->getRegenerationHistory(5);
+            $this->topArticles = $model->getTopRegeneratedArticles(5);
+        }
 
         // Set the toolbar
         $this->addToolbar();

@@ -13,6 +13,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Factory;
 
 // Get data from view
 $stats = $this->statistics;
@@ -83,6 +84,110 @@ $params = $this->pluginParams;
                 <?php endif; ?>
             </div>
         </div>
+
+        <!-- Analytics Section (Subscription Required) -->
+        <?php if ($this->hasSubscription) : ?>
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3 class="card-title"><?php echo Text::_('COM_AUTOMETA_ANALYTICS'); ?></h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Regeneration History -->
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <h4 class="h5 mb-3"><?php echo Text::_('COM_AUTOMETA_REGENERATION_HISTORY'); ?></h4>
+                        <?php if (!empty($this->regenerationHistory)) : ?>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo Text::_('COM_AUTOMETA_DATE'); ?></th>
+                                        <th><?php echo Text::_('COM_AUTOMETA_USER'); ?></th>
+                                        <th><?php echo Text::_('COM_AUTOMETA_ARTICLES_PROCESSED'); ?></th>
+                                        <th><?php echo Text::_('COM_AUTOMETA_SUCCESS_RATE'); ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($this->regenerationHistory as $log) : ?>
+                                    <?php
+                                        $successRate = $log->articles_total > 0
+                                            ? round(($log->articles_success / $log->articles_total) * 100, 1)
+                                            : 0;
+                                        $date = Factory::getDate($log->created_at);
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <small><?php echo $date->format('Y-m-d H:i'); ?></small>
+                                        </td>
+                                        <td>
+                                            <small><?php echo htmlspecialchars($log->user_name ?? 'Unknown'); ?></small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary"><?php echo $log->articles_success; ?></span>
+                                            <?php if ($log->empty_only) : ?>
+                                            <small class="text-muted">(<?php echo Text::_('COM_AUTOMETA_EMPTY_ONLY_SHORT'); ?>)</small>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <span class="badge <?php echo $successRate == 100 ? 'bg-success' : 'bg-warning'; ?>">
+                                                <?php echo $successRate; ?>%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php else : ?>
+                        <p class="text-muted"><?php echo Text::_('COM_AUTOMETA_NO_HISTORY'); ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Top Regenerated Articles -->
+                    <div class="col-md-6">
+                        <h4 class="h5 mb-3"><?php echo Text::_('COM_AUTOMETA_TOP_REGENERATED_ARTICLES'); ?></h4>
+                        <?php if (!empty($this->topArticles)) : ?>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo Text::_('COM_AUTOMETA_ARTICLE_TITLE'); ?></th>
+                                        <th><?php echo Text::_('COM_AUTOMETA_REGENERATION_COUNT'); ?></th>
+                                        <th><?php echo Text::_('COM_AUTOMETA_HITS'); ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($this->topArticles as $article) : ?>
+                                    <?php $date = $article->last_regenerated_at ? Factory::getDate($article->last_regenerated_at) : null; ?>
+                                    <tr>
+                                        <td>
+                                            <strong><?php echo htmlspecialchars($article->article_title); ?></strong>
+                                            <?php if ($date) : ?>
+                                            <br><small class="text-muted">
+                                                <?php echo Text::_('COM_AUTOMETA_LAST_REGENERATED'); ?>:
+                                                <?php echo $date->format('Y-m-d'); ?>
+                                            </small>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-primary"><?php echo $article->regeneration_count; ?>×</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"><?php echo number_format($article->last_hits_count ?? 0); ?></span>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php else : ?>
+                        <p class="text-muted"><?php echo Text::_('COM_AUTOMETA_NO_ARTICLE_HISTORY'); ?></p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
 
         <!-- Regeneration Options Section -->
         <div class="card mb-3">
