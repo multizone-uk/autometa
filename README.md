@@ -6,6 +6,8 @@ A complete Joomla extension package that automatically generates meta descriptio
 **Features:**
 - **Plugin**: Automatically generates meta descriptions on article save
 - **Component**: Bulk regeneration of meta descriptions for all articles
+- **Analytics Dashboard** (Subscription Required): Track regeneration history and article statistics
+- **Subscription Conversion Card**: Promote standard subscription tier with analytics access
 - **Unified Package**: Single installation for both extensions
 - Configurable character limit (default 160, optimal for SEO)
 - Smart truncation at word boundaries
@@ -13,6 +15,9 @@ A complete Joomla extension package that automatically generates meta descriptio
 - Option to include/exclude title or content
 - Option to overwrite existing descriptions
 - Statistics dashboard showing meta description coverage
+- Regeneration history tracking with user, timestamp, and success rates
+- Article-level analytics showing regeneration counts and hit tracking
+- Configurable data retention for analytics (default 365 days)
 - Batch processing to handle large sites efficiently
 - CSRF protection and permission checks
 - Error handling and logging
@@ -94,6 +99,10 @@ Or use in GitHub Actions with secrets - see `.github/workflows/build.yml.example
 - ~Service provider for dependency injection~
 - ~Centralize version management~
 - ~Create CHANGELOG.md~
+- ~Add basic analytics tracking~
+- Integrate subscription system for analytics access
+- Enhanced analytics with charts and trends
+- Export analytics data
 - Add unit tests
 - Activate CI/CD pipeline (example workflow ready at `.github/workflows/build.yml.example`)
 

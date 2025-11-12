@@ -49,6 +49,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Component
 
+### [2.1.0] - 2025-11-12
+
+#### Added
+- **Analytics Dashboard** (subscription-gated): Track and display regeneration statistics
+  - Recent regenerations table showing last 5 regeneration events with user, date, processed count, and success rate
+  - Top regenerated articles table showing top 5 most regenerated articles with hit counts
+  - Database tables for tracking regeneration history and article statistics
+  - Article hit count tracking at time of regeneration
+- **Subscription Conversion Card**: Promotional card for standard subscription tier
+  - Localized text for all conversion card elements
+  - Feature highlights and pricing display
+  - CTA buttons for subscription and browsing extensions
+- **Component Configuration**: Analytics retention period setting (default 365 days)
+- **Data Management**: Automatic cleanup of old analytics logs based on retention setting
+- **Database Migration**: SQL schema for analytics tables with upgrade support
+
+#### Changed
+- Bumped version to 2.1.0
+- Updated manifest to include SQL installation and update scripts
+- Enhanced regeneration process to log detailed analytics data
+- Analytics features require subscription access (placeholder implementation)
+
+#### Technical
+- Added `logRegenerationStart()` method to track regeneration initiation
+- Added `logRegenerationComplete()` method to record results and processing time
+- Added `logArticleStats()` method to maintain article regeneration counts
+- Added `getRegenerationHistory()` method to fetch recent regenerations
+- Added `getTopRegeneratedArticles()` method to get most regenerated articles
+- Added `cleanupOldAnalytics()` method for automatic data retention
+- Added `hasSubscriptionAccess()` placeholder method for future subscription integration
+- Created database tables: `#__autometa_regeneration_log` and `#__autometa_article_stats`
+
 ### [1.2.1] - 2025-11-06
 
 #### Added
