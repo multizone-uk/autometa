@@ -126,30 +126,30 @@ $params = $this->pluginParams;
                         <div class="mb-3">
                             <span class="badge bg-primary mb-2">
                                 <span class="icon-star" aria-hidden="true"></span>
-                                Premium Extension
+                                <?php echo Text::_('COM_AUTOMETA_PREMIUM_BADGE'); ?>
                             </span>
                         </div>
 
-                        <h3 class="card-title mb-3">Get Instant Access to Premium Features</h3>
-                        <p class="text-muted mb-4">Download this extension with a premium subscription</p>
+                        <h3 class="card-title mb-3"><?php echo Text::_('COM_AUTOMETA_PREMIUM_TITLE'); ?></h3>
+                        <p class="text-muted mb-4"><?php echo Text::_('COM_AUTOMETA_PREMIUM_SUBTITLE'); ?></p>
 
                         <!-- Features List -->
                         <div class="row mb-4">
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                All Extensions
+                                <?php echo Text::_('COM_AUTOMETA_PREMIUM_FEATURE_ALL_EXTENSIONS'); ?>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                Regular Updates
+                                <?php echo Text::_('COM_AUTOMETA_PREMIUM_FEATURE_REGULAR_UPDATES'); ?>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                Priority Support
+                                <?php echo Text::_('COM_AUTOMETA_PREMIUM_FEATURE_PRIORITY_SUPPORT'); ?>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                30-Day Money Back
+                                <?php echo Text::_('COM_AUTOMETA_PREMIUM_FEATURE_MONEY_BACK'); ?>
                             </div>
                         </div>
 
@@ -157,11 +157,11 @@ $params = $this->pluginParams;
                         <div class="d-flex flex-wrap gap-3">
                             <a href="https://www.multizone.co.uk/subscription?extension=&utm_source=download&utm_medium=premium_redirect&utm_campaign=conversion_card" class="btn btn-primary btn-lg">
                                 <span class="icon-shopping-cart" aria-hidden="true"></span>
-                                Start Subscription
+                                <?php echo Text::_('COM_AUTOMETA_PREMIUM_CTA_START'); ?>
                             </a>
                             <a href="/index.php/component/subsmgr?view=extensions" class="btn btn-outline-secondary btn-lg">
                                 <span class="icon-grid" aria-hidden="true"></span>
-                                Browse Extensions
+                                <?php echo Text::_('COM_AUTOMETA_PREMIUM_CTA_BROWSE'); ?>
                             </a>
                         </div>
                     </div>
@@ -170,14 +170,14 @@ $params = $this->pluginParams;
                         <!-- Pricing Card -->
                         <div class="card bg-primary text-white">
                             <div class="card-body p-4">
-                                <h4 class="card-title">Premium Access</h4>
-                                <div class="display-6 fw-bold mb-2">£29.99</div>
-                                <p class="mb-3">per year</p>
+                                <h4 class="card-title"><?php echo Text::_('COM_AUTOMETA_PREMIUM_PRICING_TITLE'); ?></h4>
+                                <div class="display-6 fw-bold mb-2"><?php echo Text::_('COM_AUTOMETA_PREMIUM_PRICING_AMOUNT'); ?></div>
+                                <p class="mb-3"><?php echo Text::_('COM_AUTOMETA_PREMIUM_PRICING_PERIOD'); ?></p>
                                 <a href="https://www.multizone.co.uk/subscription?plan=premium&extension=" class="btn btn-light btn-lg w-100">
-                                    Start Now
+                                    <?php echo Text::_('COM_AUTOMETA_PREMIUM_CTA_START_NOW'); ?>
                                 </a>
                                 <div class="mt-3">
-                                    <small>30-day money-back guarantee</small>
+                                    <small><?php echo Text::_('COM_AUTOMETA_PREMIUM_GUARANTEE'); ?></small>
                                 </div>
                             </div>
                         </div>
