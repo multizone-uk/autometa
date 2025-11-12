@@ -137,19 +137,19 @@ $params = $this->pluginParams;
                         <div class="row mb-4">
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_ALL_EXTENSIONS'); ?>
+                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_ONE'); ?>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_REGULAR_UPDATES'); ?>
+                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_TWO'); ?>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_PRIORITY_SUPPORT'); ?>
+                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_THREE'); ?>
                             </div>
                             <div class="col-md-6 mb-2">
                                 <span class="icon-check text-success" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_MONEY_BACK'); ?>
+                                <?php echo Text::_('COM_AUTOMETA_STANDARD_FEATURE_FOUR'); ?>
                             </div>
                         </div>
 
@@ -157,11 +157,11 @@ $params = $this->pluginParams;
                         <div class="d-flex flex-wrap gap-3">
                             <a href="https://www.multizone.co.uk/subscription?extension=&utm_source=download&utm_medium=premium_redirect&utm_campaign=conversion_card" class="btn btn-primary btn-lg">
                                 <span class="icon-shopping-cart" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_AUTOMETA_STANDARD_CTA_START'); ?>
+                                <?php echo Text::_('COM_AUTOMETA_STANDARD_PRIMARY_BUTTON'); ?>
                             </a>
                             <a href="/index.php/component/subsmgr?view=extensions" class="btn btn-outline-secondary btn-lg">
                                 <span class="icon-grid" aria-hidden="true"></span>
-                                <?php echo Text::_('COM_AUTOMETA_STANDARD_CTA_BROWSE'); ?>
+                                <?php echo Text::_('COM_AUTOMETA_STANDARD_SECONDARY_BUTTONE'); ?>
                             </a>
                         </div>
                     </div>
@@ -170,11 +170,11 @@ $params = $this->pluginParams;
                         <!-- Pricing Card -->
                         <div class="card bg-primary text-white">
                             <div class="card-body p-4">
-                                <h4 class="card-title"><?php echo Text::_('COM_AUTOMETA_STANDARD_PRICING_TITLE'); ?></h4>
-                                <div class="display-6 fw-bold mb-2"><?php echo Text::_('COM_AUTOMETA_STANDARD_PRICING_AMOUNT'); ?></div>
-                                <p class="mb-3"><?php echo Text::_('COM_AUTOMETA_STANDARD_PRICING_PERIOD'); ?></p>
+                                <h4 class="card-title"><?php echo Text::_('COM_AUTOMETA_STANDARD_BOX_TITLE'); ?></h4>
+                                <div class="display-6 fw-bold mb-2"><?php echo Text::_('COM_AUTOMETA_STANDARD_BOX_AMOUNT'); ?></div>
+                                <p class="mb-3"><?php echo Text::_('COM_AUTOMETA_STANDARD_BOX_PERIOD'); ?></p>
                                 <a href="https://www.multizone.co.uk/subscription?plan=premium&extension=" class="btn btn-light btn-lg w-100">
-                                    <?php echo Text::_('COM_AUTOMETA_STANDARD_CTA_START_NOW'); ?>
+                                    <?php echo Text::_('COM_AUTOMETA_STANDARD_BOX_BUTTON'); ?>
                                 </a>
                                 <div class="mt-3">
                                     <small><?php echo Text::_('COM_AUTOMETA_STANDARD_GUARANTEE'); ?></small>
