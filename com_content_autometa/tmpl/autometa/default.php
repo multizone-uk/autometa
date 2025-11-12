@@ -123,14 +123,14 @@ $params = $this->pluginParams;
             <div class="card-body p-4">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
-                        <div class="mb-3">
-                            <span class="badge bg-primary mb-2">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="card-title mb-0"><?php echo Text::_('COM_AUTOMETA_STANDARD_TITLE'); ?></h3>
+                            <span class="badge bg-primary">
                                 <span class="icon-star" aria-hidden="true"></span>
                                 <?php echo Text::_('COM_AUTOMETA_STANDARD_BADGE'); ?>
                             </span>
                         </div>
 
-                        <h3 class="card-title mb-3"><?php echo Text::_('COM_AUTOMETA_STANDARD_TITLE'); ?></h3>
                         <p class="text-muted mb-4"><?php echo Text::_('COM_AUTOMETA_STANDARD_SUBTITLE'); ?></p>
 
                         <!-- Features List -->
