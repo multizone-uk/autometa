@@ -117,5 +117,73 @@ $params = $this->pluginParams;
                 </form>
             </div>
         </div>
+
+        <!-- Premium Conversion Card -->
+        <div class="card mb-3 border-primary">
+            <div class="card-body p-4">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="mb-3">
+                            <span class="badge bg-primary mb-2">
+                                <span class="icon-star" aria-hidden="true"></span>
+                                Premium Extension
+                            </span>
+                        </div>
+
+                        <h3 class="card-title mb-3">Get Instant Access to Premium Features</h3>
+                        <p class="text-muted mb-4">Download this extension with a premium subscription</p>
+
+                        <!-- Features List -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-2">
+                                <span class="icon-check text-success" aria-hidden="true"></span>
+                                All Extensions
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <span class="icon-check text-success" aria-hidden="true"></span>
+                                Regular Updates
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <span class="icon-check text-success" aria-hidden="true"></span>
+                                Priority Support
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <span class="icon-check text-success" aria-hidden="true"></span>
+                                30-Day Money Back
+                            </div>
+                        </div>
+
+                        <!-- CTA Buttons -->
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="https://www.multizone.co.uk/subscription?extension=&utm_source=download&utm_medium=premium_redirect&utm_campaign=conversion_card" class="btn btn-primary btn-lg">
+                                <span class="icon-shopping-cart" aria-hidden="true"></span>
+                                Start Subscription
+                            </a>
+                            <a href="/index.php/component/subsmgr?view=extensions" class="btn btn-outline-secondary btn-lg">
+                                <span class="icon-grid" aria-hidden="true"></span>
+                                Browse Extensions
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 text-center mt-4 mt-lg-0">
+                        <!-- Pricing Card -->
+                        <div class="card bg-primary text-white">
+                            <div class="card-body p-4">
+                                <h4 class="card-title">Premium Access</h4>
+                                <div class="display-6 fw-bold mb-2">£29.99</div>
+                                <p class="mb-3">per year</p>
+                                <a href="https://www.multizone.co.uk/subscription?plan=premium&extension=" class="btn btn-light btn-lg w-100">
+                                    Start Now
+                                </a>
+                                <div class="mt-3">
+                                    <small>30-day money-back guarantee</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
